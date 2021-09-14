@@ -1,0 +1,116 @@
+﻿  _TObjBobsleigh.cpp
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_CCL.hpp(87,44): warning C4114: same type qualifier used more than once
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(18,1): warning C4005: 'LOBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(206): message : see previous definition of 'LOBYTE'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(19,1): warning C4005: 'LOWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(204): message : see previous definition of 'LOWORD'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(21,1): warning C4005: 'HIBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(207): message : see previous definition of 'HIBYTE'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(22,1): warning C4005: 'HIWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(205): message : see previous definition of 'HIWORD'
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(87,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(89,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(91,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(180,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(182,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(184,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(147,7): warning C4101: 'v3': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\_TObjBobsleigh.cpp(150,15): warning C4101: 'v6': unreferenced local variable
+  action.cpp
+  advertise.cpp
+  dllmain.cpp
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_CCL.hpp(87,44): warning C4114: same type qualifier used more than once
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(18,1): warning C4005: 'LOBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(206): message : see previous definition of 'LOBYTE'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(19,1): warning C4005: 'LOWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(204): message : see previous definition of 'LOWORD'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(21,1): warning C4005: 'HIBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(207): message : see previous definition of 'HIBYTE'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(22,1): warning C4005: 'HIWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(205): message : see previous definition of 'HIWORD'
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(62,6): warning C4101: 'playerNoIndex_HHC': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(64,7): warning C4101: 'v7': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(63,12): warning C4101: 'v6': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(144,21): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(144,21): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(183,12): warning C4244: '=': conversion from 'DWORD' to 'char', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(184,12): warning C4244: '=': conversion from 'DWORD' to 'char', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(268,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(273,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(278,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(283,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(288,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(303,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(303,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(303,31): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(303,31): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(308,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(308,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(308,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(308,25): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(313,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(313,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(313,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(313,25): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(321,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(321,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,25): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,31): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,31): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,37): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(326,37): warning C4309: 'initializing': truncation of constant value
+  newCamera.cpp
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_CCL.hpp(87,44): warning C4114: same type qualifier used more than once
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(30,9): warning C4101: 'v30': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(34,8): warning C4101: 'var': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(121,29): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(123,29): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(125,29): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(75,10): warning C4101: 'v7': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(74,9): warning C4101: 'v6': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\newCamera.cpp(204,67): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+  o_warp.cpp
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_CCL.hpp(87,44): warning C4114: same type qualifier used more than once
+C:\Users\DonutStopGaming\Desktop\Mod\o_warp.cpp(34,106): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+  setGen.cpp
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_CCL.hpp(87,44): warning C4114: same type qualifier used more than once
+C:\Users\DonutStopGaming\Desktop\Mod\setGen.cpp(14,9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\setGen.cpp(15,45): warning C4244: 'argument': conversion from 'int' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\setGen.cpp(23,10): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\setGen.cpp(24,46): warning C4244: 'argument': conversion from 'int' to 'RwReal', possible loss of data
+  o_s11_warp.cpp
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_CCL.hpp(87,44): warning C4114: same type qualifier used more than once
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(18,1): warning C4005: 'LOBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(206): message : see previous definition of 'LOBYTE'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(19,1): warning C4005: 'LOWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(204): message : see previous definition of 'LOWORD'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(21,1): warning C4005: 'HIBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(207): message : see previous definition of 'HIBYTE'
+C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(22,1): warning C4005: 'HIWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(205): message : see previous definition of 'HIWORD'
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(37,65): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(49,193): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(123,71): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(25,12): warning C4101: 'v15': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(280,34): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(300,29): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(305,27): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(309,23): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(325,27): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(327,27): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(328,27): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(333,31): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(337,27): warning C4244: '=': conversion from 'double' to 'RwReal', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(365,39): warning C4305: 'initializing': truncation from 'double' to 'RwReal'
+C:\Users\DonutStopGaming\Desktop\Mod\Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp(371,37): warning C4305: 'initializing': truncation from 'double' to 'RwReal'
+HeroesLib.lib(_G_PARAM.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
+     Creating library C:\Users\DonutStopGaming\Desktop\Mod\Release\mod.lib and object C:\Users\DonutStopGaming\Desktop\Mod\Release\mod.exp
+LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 37 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Sonic Heroes Extended Multiplayer Edition.vcxproj -> C:\Users\DonutStopGaming\Desktop\Mod\Release\mod.dll

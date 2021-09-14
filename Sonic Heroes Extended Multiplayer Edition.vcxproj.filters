@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Tsonic">
+      <UniqueIdentifier>{b5ef1495-e3cd-4270-a0b2-cad1bb2934f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tsonic\src">
+      <UniqueIdentifier>{dea07dc9-e6d8-425e-9e4f-4dafc83ff1fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tsonic\src\stage11_Warp">
+      <UniqueIdentifier>{1287c558-1c07-4eb4-a30d-3d5da88869b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tsonic">
+      <UniqueIdentifier>{60a280a9-088e-44ee-99e5-8a7602aafe84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tsonic\src">
+      <UniqueIdentifier>{9df26a3b-062a-48d8-a193-b9ebefc4ddf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tsonic\src\stage11_Warp">
+      <UniqueIdentifier>{0882d28c-d49f-4b71-b633-0e6c9f338b9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="advertise.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="newCamera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="o_warp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_Hook.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_TObjBobsleigh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsonic\src\stage\stage11_Warp\o_s11_warp.hpp">
+      <Filter>Header Files\Tsonic\src\stage11_Warp</Filter>
+    </ClInclude>
+    <ClInclude Include="action.hpp">
+      <Filter>Header Files\Tsonic\src\stage11_Warp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="_Hook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_TObjBobsleigh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="advertise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="newCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="o_warp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsonic\src\stage\stage11_Warp\o_s11_warp.cpp">
+      <Filter>Source Files\Tsonic\src\stage11_Warp</Filter>
+    </ClCompile>
+    <ClCompile Include="setGen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_CCL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
