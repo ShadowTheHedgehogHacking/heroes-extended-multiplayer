@@ -11,6 +11,7 @@ struct SetObjParam;
 struct SETOBJ_PARAM;
 struct BINFile;
 struct ONEFILE;
+struct C_COLLI;
 //
 
 
@@ -33,13 +34,15 @@ struct TObjSetGen : TObject
 
 struct TObjSetObj
 {	
+public:
 	static int CheckRangeOutWithoutIgnorRangeFlag(SETOBJ_PARAM* a1, RwReal a2);
 	static int CheckRangeOut(SETOBJ_PARAM* a1, RwReal a2);
 
 
 	char gap0[4];
 	SETOBJ_PARAM* objTableMaybe;
-	char gap8[44];
+	C_COLLI* C_COLLI;
+	char gap8[40];
 	SETOBJ_PARAM* field_34;
 };
 

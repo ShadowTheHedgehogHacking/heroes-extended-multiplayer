@@ -43,6 +43,7 @@ struct CCL_INFO
 
 struct C_COLLI
 {
+public:
 	C_COLLI* GetHitTarget(CCL_HIT_INFO* a1);
 	int GetCharacterId();
 	C_COLLI* IsHitKind(unsigned char kind);

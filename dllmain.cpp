@@ -86,6 +86,31 @@ struct TObjTrainCore
 };
 
 
+class TObjBigCannon : public TObject, public TObjSetObj
+{
+public:
+	char gap60[88];
+	RwV3d pos;
+	sAngle ang;
+	RwReal animTime_HHC;
+	int field_D4;
+	int field_D8;
+	char gapDC[212];
+	char field_1B0[6];
+	char gap1B6[6];
+	char field_1BC;
+	char gap1BD[55];
+	char field_1F4;
+	RwV3d barrelPos_HHC[6];
+	char gap240[24];
+	int mode__;
+	int isShooting__;
+	int field_260;
+	int shootingTime__;
+};
+
+
+
 
 
 int layoutTeamKind = 0;
@@ -520,6 +545,25 @@ void __declspec(naked) TObjTrainCore_Exec_ASM()
 		jmp trainAddy;
 	}
 }
+
+unsigned int BigCannonHack(TObjBigCannon* bigcan)
+{
+	TObjBigCannon* _tv11 = bigcan;
+	int _tv0 = GetPlayerNumberFromCCLCharacterId((*_tv11).C_COLLI->my_num);
+	TObjTeam* _tv1 = playerTOp[_tv0]->pTObjTeam;
+	return _tv1->GetLeaderPlayerNo();
+}
+
+int nextAddyforBigRigs = 0x4C891B;
+void __declspec(naked) BigCannonHack_ASM()
+{
+	__asm push edi;
+	__asm call BigCannonHack;
+	__asm add esp, 0x4;
+	__asm mov ebx, eax;
+	__asm jmp nextAddyforBigRigs;
+}
+
 //~ //
 extern "C" __declspec(dllexport) void Init()
 {
@@ -601,12 +645,18 @@ extern "C" __declspec(dllexport) void Init()
 		Hooker.WritePatch((void*)0x4DA6AF, data, 7);
 	}
 
+	{
+		char data[]{ 0x90, 0x90, 0x90 };
+		Hooker.WritePatch((void*)0x4C8918, data, 7);
+	}
+
 	Hooker.WriteJMP((void*)0x43D167, superdirtybinpatch);
 	Hooker.WriteJMP((void*)0x44B678, dirtygotogamechallengepatch);
 	Hooker.WriteJMP((void*)0x5B48D0, IncChaotixClearItem_ASM);
 	//Hooker.WriteJMP((void*)0x482FF3, ringsubstanceexechook_ASM);
 	//Hooker.WriteJMP((void*)0x4833D6, RingSubstanceCheckCollisionHook_ASM);
 	Hooker.WriteJMP((void*)0x47194C, WarpCameraAndPlayer_ASM);
+	Hooker.WriteJMP((void*)0x4C8913, BigCannonHack_ASM);
 
 	{
 		char data[] = { 0x90 };

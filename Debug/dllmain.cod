@@ -21,6 +21,7 @@ PUBLIC	?address@@3HA					; address
 PUBLIC	?address2@@3HA					; address2
 PUBLIC	?t@@3PAUTObjRingSubstance@@A			; t
 PUBLIC	?warpPosition@@3PAURwV3d@@A			; warpPosition
+PUBLIC	?nextAddyforBigRigs@@3HA			; nextAddyforBigRigs
 _BSS	SEGMENT
 ?layoutTeamKind@@3HA DD 01H DUP (?)			; layoutTeamKind
 ?myCode2@@3P6AXPAX@ZA DD 01H DUP (?)			; myCode2
@@ -55,6 +56,7 @@ _DATA	SEGMENT
 	DD	047c35000r			; 100000
 	DD	046066000r			; 8600
 	DD	046437800r			; 12510
+?nextAddyforBigRigs@@3HA DD 04c891bH			; nextAddyforBigRigs
 _DATA	ENDS
 PUBLIC	_Init
 PUBLIC	_DllMain@12
@@ -79,6 +81,8 @@ PUBLIC	?WarpCameraAndPlayer_ASM@@YAXXZ			; WarpCameraAndPlayer_ASM
 PUBLIC	?CheckPlayerHack@@YAHPAUTObjTrainCore@@@Z	; CheckPlayerHack
 PUBLIC	?TrainHack@@YAXPAUTObjTrainCore@@@Z		; TrainHack
 PUBLIC	?TObjTrainCore_Exec_ASM@@YAXXZ			; TObjTrainCore_Exec_ASM
+PUBLIC	?BigCannonHack@@YAIPAVTObjBigCannon@@@Z		; BigCannonHack
+PUBLIC	?BigCannonHack_ASM@@YAXXZ			; BigCannonHack_ASM
 PUBLIC	__JustMyCode_Default
 PUBLIC	__real@3f000000
 PUBLIC	__real@3f800000
@@ -171,26 +175,114 @@ __JustMyCode_Default ENDP
 _TEXT	ENDS
 ; Function compile flags: /Odtp /RTCsu /ZI
 ; File C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp
+;	COMDAT ?BigCannonHack_ASM@@YAXXZ
+_TEXT	SEGMENT
+?BigCannonHack_ASM@@YAXXZ PROC				; BigCannonHack_ASM, COMDAT
+
+; 560  : 	__asm push edi;
+
+  00000	57		 push	 edi
+  00001	e8 00 00 00 00	 call	 ?BigCannonHack@@YAIPAVTObjBigCannon@@@Z ; BigCannonHack
+  00006	83 c4 04	 add	 esp, 4
+  00009	8b d8		 mov	 ebx, eax
+  0000b	ff 25 00 00 00
+	00		 jmp	 DWORD PTR ?nextAddyforBigRigs@@3HA ; nextAddyforBigRigs
+?BigCannonHack_ASM@@YAXXZ ENDP				; BigCannonHack_ASM
+_TEXT	ENDS
+; Function compile flags: /Odtp /RTCsu /ZI
+; File C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp
+;	COMDAT ?BigCannonHack@@YAIPAVTObjBigCannon@@@Z
+_TEXT	SEGMENT
+__tv1$ = -32						; size = 4
+__tv0$ = -20						; size = 4
+__tv11$ = -8						; size = 4
+_bigcan$ = 8						; size = 4
+?BigCannonHack@@YAIPAVTObjBigCannon@@@Z PROC		; BigCannonHack, COMDAT
+
+; 550  : {
+
+  00000	55		 push	 ebp
+  00001	8b ec		 mov	 ebp, esp
+  00003	81 ec e4 00 00
+	00		 sub	 esp, 228		; 000000e4H
+  00009	53		 push	 ebx
+  0000a	56		 push	 esi
+  0000b	57		 push	 edi
+  0000c	8d bd 1c ff ff
+	ff		 lea	 edi, DWORD PTR [ebp-228]
+  00012	b9 39 00 00 00	 mov	 ecx, 57			; 00000039H
+  00017	b8 cc cc cc cc	 mov	 eax, -858993460		; ccccccccH
+  0001c	f3 ab		 rep stosd
+  0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
+  00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
+
+; 551  : 	TObjBigCannon* _tv11 = bigcan;
+
+  00028	8b 45 08	 mov	 eax, DWORD PTR _bigcan$[ebp]
+  0002b	89 45 f8	 mov	 DWORD PTR __tv11$[ebp], eax
+
+; 552  : 	int _tv0 = GetPlayerNumberFromCCLCharacterId((*_tv11).C_COLLI->my_num);
+
+  0002e	8b 45 f8	 mov	 eax, DWORD PTR __tv11$[ebp]
+  00031	8b 48 30	 mov	 ecx, DWORD PTR [eax+48]
+  00034	8b 51 78	 mov	 edx, DWORD PTR [ecx+120]
+  00037	52		 push	 edx
+  00038	e8 00 00 00 00	 call	 ?GetPlayerNumberFromCCLCharacterId@@YAHH@Z ; GetPlayerNumberFromCCLCharacterId
+  0003d	83 c4 04	 add	 esp, 4
+  00040	89 45 ec	 mov	 DWORD PTR __tv0$[ebp], eax
+
+; 553  : 	TObjTeam* _tv1 = playerTOp[_tv0]->pTObjTeam;
+
+  00043	8b 45 ec	 mov	 eax, DWORD PTR __tv0$[ebp]
+  00046	8b 0d 00 00 00
+	00		 mov	 ecx, DWORD PTR ?playerTOp@@3QAPAUTObjPlayer@@A ; playerTOp
+  0004c	8b 14 81	 mov	 edx, DWORD PTR [ecx+eax*4]
+  0004f	8b 82 cc 00 00
+	00		 mov	 eax, DWORD PTR [edx+204]
+  00055	89 45 e0	 mov	 DWORD PTR __tv1$[ebp], eax
+
+; 554  : 	return _tv1->GetLeaderPlayerNo();
+
+  00058	8b 4d e0	 mov	 ecx, DWORD PTR __tv1$[ebp]
+  0005b	e8 00 00 00 00	 call	 ?GetLeaderPlayerNo@TObjTeam@@QAEDXZ ; TObjTeam::GetLeaderPlayerNo
+  00060	0f be c0	 movsx	 eax, al
+
+; 555  : }
+
+  00063	5f		 pop	 edi
+  00064	5e		 pop	 esi
+  00065	5b		 pop	 ebx
+  00066	81 c4 e4 00 00
+	00		 add	 esp, 228		; 000000e4H
+  0006c	3b ec		 cmp	 ebp, esp
+  0006e	e8 00 00 00 00	 call	 __RTC_CheckEsp
+  00073	8b e5		 mov	 esp, ebp
+  00075	5d		 pop	 ebp
+  00076	c3		 ret	 0
+?BigCannonHack@@YAIPAVTObjBigCannon@@@Z ENDP		; BigCannonHack
+_TEXT	ENDS
+; Function compile flags: /Odtp /RTCsu /ZI
+; File C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp
 ;	COMDAT ?TObjTrainCore_Exec_ASM@@YAXXZ
 _TEXT	SEGMENT
 ?TObjTrainCore_Exec_ASM@@YAXXZ PROC			; TObjTrainCore_Exec_ASM, COMDAT
 
-; 514  : 	//do st
-; 515  : 	__asm
-; 516  : 	{
-; 517  : 		push edi;
+; 539  : 	//do st
+; 540  : 	__asm
+; 541  : 	{
+; 542  : 		push edi;
 
   00000	57		 push	 edi
 
-; 518  : 		call TrainHack;
+; 543  : 		call TrainHack;
 
   00001	e8 00 00 00 00	 call	 ?TrainHack@@YAXPAUTObjTrainCore@@@Z ; TrainHack
 
-; 519  : 		add esp, 0x4;
+; 544  : 		add esp, 0x4;
 
   00006	83 c4 04	 add	 esp, 4
 
-; 520  : 		jmp trainAddy;
+; 545  : 		jmp trainAddy;
 
   00009	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?trainAddy@@3HA
@@ -203,7 +295,7 @@ _TEXT	SEGMENT
 _a1$ = 8						; size = 4
 ?TrainHack@@YAXPAUTObjTrainCore@@@Z PROC		; TrainHack, COMDAT
 
-; 506  : {
+; 531  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -220,7 +312,7 @@ _a1$ = 8						; size = 4
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 507  : 	TObjCamera::WarpCameraAndPlayer(&warpPosition[(int)a1->SETOBJ_PARAM->PARAM->data[0]], CheckPlayerHack(a1));
+; 532  : 	TObjCamera::WarpCameraAndPlayer(&warpPosition[(int)a1->SETOBJ_PARAM->PARAM->data[0]], CheckPlayerHack(a1));
 
   00028	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
   0002b	50		 push	 eax
@@ -240,7 +332,7 @@ _a1$ = 8						; size = 4
   00054	e8 00 00 00 00	 call	 ?WarpCameraAndPlayer@TObjCamera@@SAXPAURwV3d@@D@Z ; TObjCamera::WarpCameraAndPlayer
   00059	83 c4 08	 add	 esp, 8
 
-; 508  : 	*(int*)&a1->SETOBJ_PARAM->SETFlag_HHC &= ~0x10002;
+; 533  : 	*(int*)&a1->SETOBJ_PARAM->SETFlag_HHC &= ~0x10002;
 
   0005c	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
   0005f	8b 48 2c	 mov	 ecx, DWORD PTR [eax+44]
@@ -251,7 +343,7 @@ _a1$ = 8						; size = 4
   0006e	8b 48 2c	 mov	 ecx, DWORD PTR [eax+44]
   00071	89 51 18	 mov	 DWORD PTR [ecx+24], edx
 
-; 509  : }
+; 534  : }
 
   00074	5f		 pop	 edi
   00075	5e		 pop	 esi
@@ -277,7 +369,7 @@ _hitTarget$ = -8					; size = 4
 _a1$ = 8						; size = 4
 ?CheckPlayerHack@@YAHPAUTObjTrainCore@@@Z PROC		; CheckPlayerHack, COMDAT
 
-; 468  : {
+; 493  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -294,11 +386,11 @@ _a1$ = 8						; size = 4
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 469  : 	CCL_MASTER::ClearSearch();
+; 494  : 	CCL_MASTER::ClearSearch();
 
   00028	e8 00 00 00 00	 call	 ?ClearSearch@CCL_MASTER@@SAXXZ ; CCL_MASTER::ClearSearch
 
-; 470  : 	C_COLLI* hitTarget = a1->C_COLLI.IsHitKind(0xdu);
+; 495  : 	C_COLLI* hitTarget = a1->C_COLLI.IsHitKind(0xdu);
 
   0002d	6a 0d		 push	 13			; 0000000dH
   0002f	8b 4d 08	 mov	 ecx, DWORD PTR _a1$[ebp]
@@ -306,47 +398,47 @@ _a1$ = 8						; size = 4
   00035	e8 00 00 00 00	 call	 ?IsHitKind@C_COLLI@@QAEPAU1@E@Z ; C_COLLI::IsHitKind
   0003a	89 45 f8	 mov	 DWORD PTR _hitTarget$[ebp], eax
 
-; 471  : 	if (!hitTarget)
+; 496  : 	if (!hitTarget)
 
   0003d	83 7d f8 00	 cmp	 DWORD PTR _hitTarget$[ebp], 0
   00041	0f 85 dd 00 00
 	00		 jne	 $LN4@CheckPlaye
 
-; 472  : 	{
-; 473  : 		CCL_MASTER::ClearSearch();
+; 497  : 	{
+; 498  : 		CCL_MASTER::ClearSearch();
 
   00047	e8 00 00 00 00	 call	 ?ClearSearch@CCL_MASTER@@SAXXZ ; CCL_MASTER::ClearSearch
 $LN2@CheckPlaye:
 
-; 474  : 		while (1)
+; 499  : 		while (1)
 
   0004c	b8 01 00 00 00	 mov	 eax, 1
   00051	85 c0		 test	 eax, eax
   00053	0f 84 cb 00 00
 	00		 je	 $LN4@CheckPlaye
 
-; 475  : 		{
-; 476  : 			//hitTarget = a1->C_COLLI.IsHitKind(0x14);
-; 477  : 			hitTarget = a1->C_COLLI.IsHitPlayer();
+; 500  : 		{
+; 501  : 			//hitTarget = a1->C_COLLI.IsHitKind(0x14);
+; 502  : 			hitTarget = a1->C_COLLI.IsHitPlayer();
 
   00059	8b 4d 08	 mov	 ecx, DWORD PTR _a1$[ebp]
   0005c	83 c1 30	 add	 ecx, 48			; 00000030H
   0005f	e8 00 00 00 00	 call	 ?IsHitPlayer@C_COLLI@@QAEPAU1@XZ ; C_COLLI::IsHitPlayer
   00064	89 45 f8	 mov	 DWORD PTR _hitTarget$[ebp], eax
 
-; 478  : 			if (!hitTarget)
+; 503  : 			if (!hitTarget)
 
   00067	83 7d f8 00	 cmp	 DWORD PTR _hitTarget$[ebp], 0
   0006b	75 05		 jne	 SHORT $LN5@CheckPlaye
 
-; 479  : 			{
-; 480  : 				break;
+; 504  : 			{
+; 505  : 				break;
 
   0006d	e9 b2 00 00 00	 jmp	 $LN4@CheckPlaye
 $LN5@CheckPlaye:
 
-; 481  : 			}
-; 482  : 			int v1 = GetPlayerNumberFromCCLCharacterId(hitTarget->GetCharacterId());
+; 506  : 			}
+; 507  : 			int v1 = GetPlayerNumberFromCCLCharacterId(hitTarget->GetCharacterId());
 
   00072	8b 4d f8	 mov	 ecx, DWORD PTR _hitTarget$[ebp]
   00075	e8 00 00 00 00	 call	 ?GetCharacterId@C_COLLI@@QAEHXZ ; C_COLLI::GetCharacterId
@@ -355,7 +447,7 @@ $LN5@CheckPlaye:
   00080	83 c4 04	 add	 esp, 4
   00083	89 45 ec	 mov	 DWORD PTR _v1$4[ebp], eax
 
-; 483  : 			TObjPlayer* v6 = playerTOp[v1];
+; 508  : 			TObjPlayer* v6 = playerTOp[v1];
 
   00086	8b 45 ec	 mov	 eax, DWORD PTR _v1$4[ebp]
   00089	8b 0d 00 00 00
@@ -363,21 +455,21 @@ $LN5@CheckPlaye:
   0008f	8b 14 81	 mov	 edx, DWORD PTR [ecx+eax*4]
   00092	89 55 e0	 mov	 DWORD PTR _v6$3[ebp], edx
 
-; 484  : 			if (v6)
+; 509  : 			if (v6)
 
   00095	83 7d e0 00	 cmp	 DWORD PTR _v6$3[ebp], 0
   00099	0f 84 80 00 00
 	00		 je	 $LN6@CheckPlaye
 
-; 485  : 			{
-; 486  : 				int v7 = v6->teamNo;
+; 510  : 			{
+; 511  : 				int v7 = v6->teamNo;
 
   0009f	8b 45 e0	 mov	 eax, DWORD PTR _v6$3[ebp]
   000a2	0f be 88 be 00
 	00 00		 movsx	 ecx, BYTE PTR [eax+190]
   000a9	89 4d d4	 mov	 DWORD PTR _v7$2[ebp], ecx
 
-; 487  : 				TObjTeam* v3 = teamTOp[v7];
+; 512  : 				TObjTeam* v3 = teamTOp[v7];
 
   000ac	8b 45 d4	 mov	 eax, DWORD PTR _v7$2[ebp]
   000af	8b 0d 00 00 00
@@ -385,13 +477,13 @@ $LN5@CheckPlaye:
   000b5	8b 14 81	 mov	 edx, DWORD PTR [ecx+eax*4]
   000b8	89 55 c8	 mov	 DWORD PTR _v3$1[ebp], edx
 
-; 488  : 				if (v3)
+; 513  : 				if (v3)
 
   000bb	83 7d c8 00	 cmp	 DWORD PTR _v3$1[ebp], 0
   000bf	74 5e		 je	 SHORT $LN6@CheckPlaye
 
-; 489  : 				{
-; 490  : 					if (v3->playerNo[v3->GetNowLeaderPlayerNo() % 3] == v1 || v3->playerNo[v3->GetLeaderPlayerNo() % 3] == v1)
+; 514  : 				{
+; 515  : 					if (v3->playerNo[v3->GetNowLeaderPlayerNo() % 3] == v1 || v3->playerNo[v3->GetLeaderPlayerNo() % 3] == v1)
 
   000c1	8b 4d c8	 mov	 ecx, DWORD PTR _v3$1[ebp]
   000c4	e8 00 00 00 00	 call	 ?GetNowLeaderPlayerNo@TObjTeam@@QAEDXZ ; TObjTeam::GetNowLeaderPlayerNo
@@ -417,8 +509,8 @@ $LN5@CheckPlaye:
   00105	75 18		 jne	 SHORT $LN6@CheckPlaye
 $LN9@CheckPlaye:
 
-; 491  : 					{
-; 492  : 						if (v3->IsThisPostedPlayer(v1))
+; 516  : 					{
+; 517  : 						if (v3->IsThisPostedPlayer(v1))
 
   00107	8b 45 ec	 mov	 eax, DWORD PTR _v1$4[ebp]
   0010a	50		 push	 eax
@@ -428,30 +520,30 @@ $LN9@CheckPlaye:
   00116	85 c9		 test	 ecx, ecx
   00118	74 05		 je	 SHORT $LN6@CheckPlaye
 
-; 493  : 						{
-; 494  : 							//this->currentPlayerNo = v7;
-; 495  : 							return v7;
+; 518  : 						{
+; 519  : 							//this->currentPlayerNo = v7;
+; 520  : 							return v7;
 
   0011a	8b 45 d4	 mov	 eax, DWORD PTR _v7$2[ebp]
   0011d	eb 07		 jmp	 SHORT $LN1@CheckPlaye
 $LN6@CheckPlaye:
 
-; 496  : 						}
-; 497  : 					}
-; 498  : 				}
-; 499  : 			}
-; 500  : 		}
+; 521  : 						}
+; 522  : 					}
+; 523  : 				}
+; 524  : 			}
+; 525  : 		}
 
   0011f	e9 28 ff ff ff	 jmp	 $LN2@CheckPlaye
 $LN4@CheckPlaye:
 
-; 501  : 	}
-; 502  : 	return 0;
+; 526  : 	}
+; 527  : 	return 0;
 
   00124	33 c0		 xor	 eax, eax
 $LN1@CheckPlaye:
 
-; 503  : }
+; 528  : }
 
   00126	5f		 pop	 edi
   00127	5e		 pop	 esi
@@ -471,26 +563,26 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?WarpCameraAndPlayer_ASM@@YAXXZ PROC			; WarpCameraAndPlayer_ASM, COMDAT
 
-; 450  : 	__asm
-; 451  : 	{
-; 452  : 		push[ebp + 0xF8];
+; 475  : 	__asm
+; 476  : 	{
+; 477  : 		push[ebp + 0xF8];
 
   00000	ff b5 f8 00 00
 	00		 push	 DWORD PTR [ebp+248]
 
-; 453  : 		push eax;
+; 478  : 		push eax;
 
   00006	50		 push	 eax
 
-; 454  : 		call TObjCamera::WarpCameraAndPlayer;
+; 479  : 		call TObjCamera::WarpCameraAndPlayer;
 
   00007	e8 00 00 00 00	 call	 ?WarpCameraAndPlayer@TObjCamera@@SAXPAURwV3d@@D@Z ; TObjCamera::WarpCameraAndPlayer
 
-; 455  : 		add esp, 0x8;
+; 480  : 		add esp, 0x8;
 
   0000c	83 c4 08	 add	 esp, 8
 
-; 456  : 		jmp [addyback];
+; 481  : 		jmp [addyback];
 
   0000f	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?addyback@@3HA
@@ -502,18 +594,18 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?RingSubstanceCheckCollisionHook_ASM@@YAXXZ PROC	; RingSubstanceCheckCollisionHook_ASM, COMDAT
 
-; 430  : 	__asm
-; 431  : 	{
-; 432  : 		push eax;
+; 455  : 	__asm
+; 456  : 	{
+; 457  : 		push eax;
 
   00000	50		 push	 eax
 
-; 433  : 		push ecx;
+; 458  : 		push ecx;
 
   00001	51		 push	 ecx
 
-; 434  : 	}
-; 435  : 	if (*(int*)t->pTObjSetRing == 0x7525CC)
+; 459  : 	}
+; 460  : 	if (*(int*)t->pTObjSetRing == 0x7525CC)
 
   00002	a1 00 00 00 00	 mov	 eax, DWORD PTR ?t@@3PAUTObjRingSubstance@@A ; t
   00007	8b 88 d8 00 00
@@ -522,26 +614,26 @@ _TEXT	SEGMENT
 	00		 cmp	 DWORD PTR [ecx], 7677388 ; 007525ccH
   00013	75 0c		 jne	 SHORT $LN2@RingSubsta
 
-; 436  : 	{
-; 437  : 		t->state__ = 5;
+; 461  : 	{
+; 462  : 		t->state__ = 5;
 
   00015	a1 00 00 00 00	 mov	 eax, DWORD PTR ?t@@3PAUTObjRingSubstance@@A ; t
   0001a	c6 80 c9 00 00
 	00 05		 mov	 BYTE PTR [eax+201], 5
 $LN2@RingSubsta:
 
-; 438  : 	}
-; 439  : 	__asm
-; 440  : 	{
-; 441  : 		pop ecx;
+; 463  : 	}
+; 464  : 	__asm
+; 465  : 	{
+; 466  : 		pop ecx;
 
   00021	59		 pop	 ecx
 
-; 442  : 		pop eax;
+; 467  : 		pop eax;
 
   00022	58		 pop	 eax
 
-; 443  : 		jmp addybacktocheckcolli;
+; 468  : 		jmp addybacktocheckcolli;
 
   00023	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?addybacktocheckcolli@@3HA
@@ -553,7 +645,7 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?ringsubstanceexechook_ASM@@YAXXZ PROC			; ringsubstanceexechook_ASM, COMDAT
 
-; 376  : 	__asm push eax;
+; 401  : 	__asm push eax;
 
   00000	50		 push	 eax
   00001	51		 push	 ecx
@@ -567,19 +659,19 @@ _TEXT	SEGMENT
 	00		 cmp	 DWORD PTR [ecx], 7677388 ; 007525ccH
   0001a	74 6e		 je	 SHORT $LN2@ringsubsta
 
-; 377  : 	__asm push ecx;
-; 378  : 	__asm push edx;
-; 379  : 	__asm mov[t], esi;
-; 380  : 	if (*(int*)t->pTObjSetRing != 0x7525CC)//(t->pTObjSetRing->type_HHC != 4)//(t->field_CC)
-; 381  : 	{
-; 382  : 		// terribleFunc(); enable for logging, when releasing also remove import fstream at top
-; 383  : 
-; 384  : 		// null and common case
-; 385  : 		//if (t->pTObjSetRing->field_54 == NULL || (int)(t->pTObjSetRing->field_54) <= 0xCFFF) {
-; 386  : 		//	goto endOfRingCheck;
-; 387  : 		//}
-; 388  : 
-; 389  : 		if (!((1 << (t->ringNo & 31)) & *(&t->pTObjSetRing->field_54->pStrage_HHC->gottenFlag + ((t->ringNo >> 5) & 3))))
+; 402  : 	__asm push ecx;
+; 403  : 	__asm push edx;
+; 404  : 	__asm mov[t], esi;
+; 405  : 	if (*(int*)t->pTObjSetRing != 0x7525CC)//(t->pTObjSetRing->type_HHC != 4)//(t->field_CC)
+; 406  : 	{
+; 407  : 		// terribleFunc(); enable for logging, when releasing also remove import fstream at top
+; 408  : 
+; 409  : 		// null and common case
+; 410  : 		//if (t->pTObjSetRing->field_54 == NULL || (int)(t->pTObjSetRing->field_54) <= 0xCFFF) {
+; 411  : 		//	goto endOfRingCheck;
+; 412  : 		//}
+; 413  : 
+; 414  : 		if (!((1 << (t->ringNo & 31)) & *(&t->pTObjSetRing->field_54->pStrage_HHC->gottenFlag + ((t->ringNo >> 5) & 3))))
 
   0001c	a1 00 00 00 00	 mov	 eax, DWORD PTR ?t@@3PAUTObjRingSubstance@@A ; t
   00021	0f be 88 ca 00
@@ -601,50 +693,50 @@ _TEXT	SEGMENT
   00058	75 0e		 jne	 SHORT $LN4@ringsubsta
 $heretest$8:
 
-; 390  : 		{
-; 391  : 				heretest:
-; 392  : 			{
-; 393  : 				__asm
-; 394  : 				{
-; 395  : 					pop edx;
+; 415  : 		{
+; 416  : 				heretest:
+; 417  : 			{
+; 418  : 				__asm
+; 419  : 				{
+; 420  : 					pop edx;
 
   0005a	5a		 pop	 edx
 
-; 396  : 					pop ecx;
+; 421  : 					pop ecx;
 
   0005b	59		 pop	 ecx
 
-; 397  : 					pop eax;
+; 422  : 					pop eax;
 
   0005c	58		 pop	 eax
 
-; 398  : 					call[addy];
+; 423  : 					call[addy];
 
   0005d	ff 15 00 00 00
 	00		 call	 DWORD PTR ?addy@@3HA
 
-; 399  : 					push eax;
+; 424  : 					push eax;
 
   00063	50		 push	 eax
 
-; 400  : 					push ecx;
+; 425  : 					push ecx;
 
   00064	51		 push	 ecx
 
-; 401  : 					push edx;
+; 426  : 					push edx;
 
   00065	52		 push	 edx
 
-; 402  : 				}
-; 403  : 			}
-; 404  : 		}
+; 427  : 				}
+; 428  : 			}
+; 429  : 		}
 
   00066	eb 20		 jmp	 SHORT $LN5@ringsubsta
 $LN4@ringsubsta:
 
-; 405  : 		else
-; 406  : 		{
-; 407  : 			if (t->pTObjSetRing->numRings < 5)
+; 430  : 		else
+; 431  : 		{
+; 432  : 			if (t->pTObjSetRing->numRings < 5)
 
   00068	a1 00 00 00 00	 mov	 eax, DWORD PTR ?t@@3PAUTObjRingSubstance@@A ; t
   0006d	8b 88 d8 00 00
@@ -653,45 +745,45 @@ $LN4@ringsubsta:
   00077	83 fa 05	 cmp	 edx, 5
   0007a	7d 0c		 jge	 SHORT $LN5@ringsubsta
 
-; 408  : 			{
-; 409  : 				t->state__ = 5;
+; 433  : 			{
+; 434  : 				t->state__ = 5;
 
   0007c	a1 00 00 00 00	 mov	 eax, DWORD PTR ?t@@3PAUTObjRingSubstance@@A ; t
   00081	c6 80 c9 00 00
 	00 05		 mov	 BYTE PTR [eax+201], 5
 $LN5@ringsubsta:
 
-; 410  : 			}
-; 411  : 		}
-; 412  : 	}
+; 435  : 			}
+; 436  : 		}
+; 437  : 	}
 
   00088	eb 02		 jmp	 SHORT $endOfRingCheck$9
 $LN2@ringsubsta:
 
-; 413  : 	else
-; 414  : 	{
-; 415  : 		goto heretest;
+; 438  : 	else
+; 439  : 	{
+; 440  : 		goto heretest;
 
   0008a	eb ce		 jmp	 SHORT $heretest$8
 $endOfRingCheck$9:
 
-; 416  : 	}
-; 417  : endOfRingCheck: ; //label marker, do nothing before pop and return
-; 418  : 	__asm
-; 419  : 	{
-; 420  : 		pop edx;
+; 441  : 	}
+; 442  : endOfRingCheck: ; //label marker, do nothing before pop and return
+; 443  : 	__asm
+; 444  : 	{
+; 445  : 		pop edx;
 
   0008c	5a		 pop	 edx
 
-; 421  : 		pop ecx;
+; 446  : 		pop ecx;
 
   0008d	59		 pop	 ecx
 
-; 422  : 		pop eax;
+; 447  : 		pop eax;
 
   0008e	58		 pop	 eax
 
-; 423  : 		jmp [addy2];
+; 448  : 		jmp [addy2];
 
   0008f	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?addy2@@3HA
@@ -706,7 +798,7 @@ _t$ = -12						; size = 4
 __$ArrayPad$ = -4					; size = 4
 ?ringtest@@YAXXZ PROC					; ringtest, COMDAT
 
-; 351  : {
+; 376  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -724,8 +816,8 @@ __$ArrayPad$ = -4					; size = 4
   00023	33 c5		 xor	 eax, ebp
   00025	89 45 fc	 mov	 DWORD PTR __$ArrayPad$[ebp], eax
 
-; 352  : 	TObjRingSubstance* t;
-; 353  : 	__asm mov [t], esi;
+; 377  : 	TObjRingSubstance* t;
+; 378  : 	__asm mov [t], esi;
 
   00028	89 75 f4	 mov	 DWORD PTR _t$[ebp], esi
   0002b	8b 45 f4	 mov	 eax, DWORD PTR _t$[ebp]
@@ -747,20 +839,20 @@ __$ArrayPad$ = -4					; size = 4
   0005e	23 14 81	 and	 edx, DWORD PTR [ecx+eax*4]
   00061	75 0a		 jne	 SHORT $LN1@ringtest
 
-; 354  : 	if (!((1 << (t->ringNo & 31)) &*(&t->pTObjSetRing->field_54->pStrage_HHC->gottenFlag + ((t->ringNo >> 5) & 3))))
-; 355  : 	{
-; 356  : 		int addy = 0x4832F0;
+; 379  : 	if (!((1 << (t->ringNo & 31)) &*(&t->pTObjSetRing->field_54->pStrage_HHC->gottenFlag + ((t->ringNo >> 5) & 3))))
+; 380  : 	{
+; 381  : 		int addy = 0x4832F0;
 
   00063	c7 45 e8 f0 32
 	48 00		 mov	 DWORD PTR _addy$1[ebp], 4731632 ; 004832f0H
 
-; 357  : 		__asm jmp [addy];
+; 382  : 		__asm jmp [addy];
 
   0006a	ff 65 e8	 jmp	 DWORD PTR _addy$1[ebp]
 $LN1@ringtest:
 
-; 358  : 	}
-; 359  : }
+; 383  : 	}
+; 384  : }
 
   0006d	5f		 pop	 edi
   0006e	5e		 pop	 esi
@@ -783,43 +875,43 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?BobCatchPlayer_Hook@@YAXXZ PROC			; BobCatchPlayer_Hook, COMDAT
 
-; 332  : 	static int addytrue = 0x45EEF7;
-; 333  : 	static int addyfalse = 0x45EF41;
-; 334  : 	__asm
-; 335  : 	{
-; 336  : 		mov ecx, [esi + 0x198];
+; 357  : 	static int addytrue = 0x45EEF7;
+; 358  : 	static int addyfalse = 0x45EF41;
+; 359  : 	__asm
+; 360  : 	{
+; 361  : 		mov ecx, [esi + 0x198];
 
   00000	8b 8e 98 01 00
 	00		 mov	 ecx, DWORD PTR [esi+408]
 
-; 337  : 		cmp eax, ecx;
+; 362  : 		cmp eax, ecx;
 
   00006	3b c1		 cmp	 eax, ecx
 
-; 338  : 		jne itsfalse;
+; 363  : 		jne itsfalse;
 
   00008	75 02		 jne	 SHORT $itsfalse$3
 
-; 339  : 		jmp itstrue;
+; 364  : 		jmp itstrue;
 
   0000a	eb 06		 jmp	 SHORT $itstrue$4
 $itsfalse$3:
 
-; 340  : 
-; 341  : 	itsfalse:
-; 342  : 		jmp addyfalse;
+; 365  : 
+; 366  : 	itsfalse:
+; 367  : 		jmp addyfalse;
 
   0000c	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?addyfalse@?1??BobCatchPlayer_Hook@@YAXXZ@4HA
 $itstrue$4:
 
-; 343  : 
-; 344  : 	itstrue:
-; 345  : 		cmp eax, 3;
+; 368  : 
+; 369  : 	itstrue:
+; 370  : 		cmp eax, 3;
 
   00012	83 f8 03	 cmp	 eax, 3
 
-; 346  : 		jmp addytrue;
+; 371  : 		jmp addytrue;
 
   00015	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?addytrue@?1??BobCatchPlayer_Hook@@YAXXZ@4HA
@@ -835,7 +927,7 @@ _a6$ = 16						; size = 4
 _a7$ = 20						; size = 4
 ?SetBobsleigh_Hook2@@YAXHPADPAX1@Z PROC			; SetBobsleigh_Hook2, COMDAT
 
-; 322  : {
+; 347  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -852,13 +944,13 @@ _a7$ = 20						; size = 4
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 323  : 	*(float*)(BobsleighParam + 0x1C) = 0;
+; 348  : 	*(float*)(BobsleighParam + 0x1C) = 0;
 
   00028	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
   0002b	0f 57 c0	 xorps	 xmm0, xmm0
   0002e	f3 0f 11 40 1c	 movss	 DWORD PTR [eax+28], xmm0
 
-; 324  : 	myCodeSetBobsleigh2(bobsleighID_HHC, BobsleighParam, a6, a7);
+; 349  : 	myCodeSetBobsleigh2(bobsleighID_HHC, BobsleighParam, a6, a7);
 
   00033	8b f4		 mov	 esi, esp
   00035	8b 45 14	 mov	 eax, DWORD PTR _a7$[ebp]
@@ -875,25 +967,25 @@ _a7$ = 20						; size = 4
   0004e	3b f4		 cmp	 esi, esp
   00050	e8 00 00 00 00	 call	 __RTC_CheckEsp
 
-; 325  : 	*(int*)(BobsleighParam + 0x38) = 1;
+; 350  : 	*(int*)(BobsleighParam + 0x38) = 1;
 
   00055	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
   00058	c7 40 38 01 00
 	00 00		 mov	 DWORD PTR [eax+56], 1
 
-; 326  : 	*(float*)(BobsleighParam + 0x1C) = 0.5;
+; 351  : 	*(float*)(BobsleighParam + 0x1C) = 0.5;
 
   0005f	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
   00062	f3 0f 10 05 00
 	00 00 00	 movss	 xmm0, DWORD PTR __real@3f000000
   0006a	f3 0f 11 40 1c	 movss	 DWORD PTR [eax+28], xmm0
 
-; 327  : 	bobsleighID_HHC = 4;
+; 352  : 	bobsleighID_HHC = 4;
 
   0006f	c7 45 08 04 00
 	00 00		 mov	 DWORD PTR _bobsleighID_HHC$[ebp], 4
 
-; 328  : 	myCodeSetBobsleigh2(bobsleighID_HHC, BobsleighParam, a6, a7);
+; 353  : 	myCodeSetBobsleigh2(bobsleighID_HHC, BobsleighParam, a6, a7);
 
   00076	8b f4		 mov	 esi, esp
   00078	8b 45 14	 mov	 eax, DWORD PTR _a7$[ebp]
@@ -910,7 +1002,7 @@ _a7$ = 20						; size = 4
   00091	3b f4		 cmp	 esi, esp
   00093	e8 00 00 00 00	 call	 __RTC_CheckEsp
 
-; 329  : }
+; 354  : }
 
   00098	5f		 pop	 edi
   00099	5e		 pop	 esi
@@ -932,7 +1024,7 @@ _bobsleighID_HHC$ = 8					; size = 4
 _BobsleighParam$ = 12					; size = 4
 ?SetBobsleigh_Hook@@YAXHPAD@Z PROC			; SetBobsleigh_Hook, COMDAT
 
-; 313  : {
+; 338  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -949,13 +1041,13 @@ _BobsleighParam$ = 12					; size = 4
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 314  : 	*(float*)(BobsleighParam + 0x1C) = 0;
+; 339  : 	*(float*)(BobsleighParam + 0x1C) = 0;
 
   00028	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
   0002b	0f 57 c0	 xorps	 xmm0, xmm0
   0002e	f3 0f 11 40 1c	 movss	 DWORD PTR [eax+28], xmm0
 
-; 315  : 	myCodeSetBobsleigh(bobsleighID_HHC, BobsleighParam);
+; 340  : 	myCodeSetBobsleigh(bobsleighID_HHC, BobsleighParam);
 
   00033	8b f4		 mov	 esi, esp
   00035	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
@@ -968,25 +1060,25 @@ _BobsleighParam$ = 12					; size = 4
   00046	3b f4		 cmp	 esi, esp
   00048	e8 00 00 00 00	 call	 __RTC_CheckEsp
 
-; 316  : 	*(int*)(BobsleighParam + 0x38) = 1;
+; 341  : 	*(int*)(BobsleighParam + 0x38) = 1;
 
   0004d	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
   00050	c7 40 38 01 00
 	00 00		 mov	 DWORD PTR [eax+56], 1
 
-; 317  : 	*(float*)(BobsleighParam + 0x1C) = 1;
+; 342  : 	*(float*)(BobsleighParam + 0x1C) = 1;
 
   00057	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
   0005a	f3 0f 10 05 00
 	00 00 00	 movss	 xmm0, DWORD PTR __real@3f800000
   00062	f3 0f 11 40 1c	 movss	 DWORD PTR [eax+28], xmm0
 
-; 318  : 	bobsleighID_HHC = 4;
+; 343  : 	bobsleighID_HHC = 4;
 
   00067	c7 45 08 04 00
 	00 00		 mov	 DWORD PTR _bobsleighID_HHC$[ebp], 4
 
-; 319  : 	myCodeSetBobsleigh(bobsleighID_HHC, BobsleighParam);
+; 344  : 	myCodeSetBobsleigh(bobsleighID_HHC, BobsleighParam);
 
   0006e	8b f4		 mov	 esi, esp
   00070	8b 45 0c	 mov	 eax, DWORD PTR _BobsleighParam$[ebp]
@@ -999,7 +1091,7 @@ _BobsleighParam$ = 12					; size = 4
   00081	3b f4		 cmp	 esi, esp
   00083	e8 00 00 00 00	 call	 __RTC_CheckEsp
 
-; 320  : }
+; 345  : }
 
   00088	5f		 pop	 edi
   00089	5e		 pop	 esi
@@ -1019,13 +1111,13 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?dirtygotogamechallengepatch@@YAXXZ PROC		; dirtygotogamechallengepatch, COMDAT
 
-; 306  : 	__asm
-; 307  : 	{
-; 308  : 		mov layoutTeamKind, eax
+; 331  : 	__asm
+; 332  : 	{
+; 333  : 		mov layoutTeamKind, eax
 
   00000	a3 00 00 00 00	 mov	 DWORD PTR ?layoutTeamKind@@3HA, eax ; layoutTeamKind
 
-; 309  : 		jmp address2;
+; 334  : 		jmp address2;
 
   00005	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?address2@@3HA ; address2
@@ -1037,17 +1129,17 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?superdirtybinpatch@@YAXXZ PROC				; superdirtybinpatch, COMDAT
 
-; 296  : 	__asm
-; 297  : 	{
-; 298  : 		mov eax, layoutTeamKind;
+; 321  : 	__asm
+; 322  : 	{
+; 323  : 		mov eax, layoutTeamKind;
 
   00000	a1 00 00 00 00	 mov	 eax, DWORD PTR ?layoutTeamKind@@3HA ; layoutTeamKind
 
-; 299  : 		cmp eax, 4;
+; 324  : 		cmp eax, 4;
 
   00005	83 f8 04	 cmp	 eax, 4
 
-; 300  : 		jmp address;
+; 325  : 		jmp address;
 
   00008	ff 25 00 00 00
 	00		 jmp	 DWORD PTR ?address@@3HA	; address
@@ -1059,21 +1151,21 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?ADV_2P_ExecSelect2@@YAXXZ PROC				; ADV_2P_ExecSelect2, COMDAT
 
-; 285  : 	__asm
-; 286  : 	{
-; 287  : 		push eax;
+; 310  : 	__asm
+; 311  : 	{
+; 312  : 		push eax;
 
   00000	50		 push	 eax
 
-; 288  : 		call ADV_2P_ExecSelect2_Tramp;
+; 313  : 		call ADV_2P_ExecSelect2_Tramp;
 
   00001	e8 00 00 00 00	 call	 ?ADV_2P_ExecSelect2_Tramp@@YAXPAUADV_2P@@@Z ; ADV_2P_ExecSelect2_Tramp
 
-; 289  : 		add esp, 0x4;
+; 314  : 		add esp, 0x4;
 
   00006	83 c4 04	 add	 esp, 4
 
-; 290  : 		ret;
+; 315  : 		ret;
 
   00009	c3		 ret	 0
 ?ADV_2P_ExecSelect2@@YAXXZ ENDP				; ADV_2P_ExecSelect2
@@ -1085,7 +1177,7 @@ _TEXT	SEGMENT
 _a1$ = 8						; size = 4
 ?ADV_2P_ExecSelect2_Tramp@@YAXPAUADV_2P@@@Z PROC	; ADV_2P_ExecSelect2_Tramp, COMDAT
 
-; 274  : {
+; 299  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -1100,19 +1192,19 @@ _a1$ = 8						; size = 4
   00017	b8 cc cc cc cc	 mov	 eax, -858993460		; ccccccccH
   0001c	f3 ab		 rep stosd
 
-; 275  : 	__asm
-; 276  : 	{
-; 277  : 		mov eax, a1;
+; 300  : 	__asm
+; 301  : 	{
+; 302  : 		mov eax, a1;
 
   0001e	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
 
-; 278  : 		call myCode3;
+; 303  : 		call myCode3;
 
   00021	ff 15 00 00 00
 	00		 call	 DWORD PTR ?myCode3@@3P6AXPAX@ZA ; myCode3
 
-; 279  : 	}
-; 280  : 	team1 = a1->p1Team;
+; 304  : 	}
+; 305  : 	team1 = a1->p1Team;
 
   00027	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
   0002a	8a 88 34 02 00
@@ -1120,7 +1212,7 @@ _a1$ = 8						; size = 4
   00030	88 0d 00 00 00
 	00		 mov	 BYTE PTR ?team1@@3DA, cl ; team1
 
-; 281  : 	team2 = a1->p2Team;
+; 306  : 	team2 = a1->p2Team;
 
   00036	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
   00039	8a 88 38 02 00
@@ -1128,7 +1220,7 @@ _a1$ = 8						; size = 4
   0003f	88 0d 00 00 00
 	00		 mov	 BYTE PTR ?team2@@3DA, cl ; team2
 
-; 282  : }
+; 307  : }
 
   00045	5f		 pop	 edi
   00046	5e		 pop	 esi
@@ -1149,7 +1241,7 @@ _TEXT	SEGMENT
 _a1$ = 8						; size = 4
 ?ADV_2P_Create_Tramp@@YAXPAUTObject@@@Z PROC		; ADV_2P_Create_Tramp, COMDAT
 
-; 262  : {
+; 287  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -1166,10 +1258,10 @@ _a1$ = 8						; size = 4
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 263  : 	
-; 264  : 	//ADV_2P_Create();
-; 265  : 	//__asm call myCode;
-; 266  : 	myCode2(a1);
+; 288  : 	
+; 289  : 	//ADV_2P_Create();
+; 290  : 	//__asm call myCode;
+; 291  : 	myCode2(a1);
 
   00028	8b f4		 mov	 esi, esp
   0002a	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
@@ -1180,15 +1272,15 @@ _a1$ = 8						; size = 4
   00037	3b f4		 cmp	 esi, esp
   00039	e8 00 00 00 00	 call	 __RTC_CheckEsp
 
-; 267  : 	//((ADVERTISE_CONTROL*)((char*)(*Advertise.folder_HHC) + 0x18))->lastSubMode = 6;
-; 268  : 	((ADVERTISE_CONTROL*)(a1->Child))->lastSubMode = 6;
+; 292  : 	//((ADVERTISE_CONTROL*)((char*)(*Advertise.folder_HHC) + 0x18))->lastSubMode = 6;
+; 293  : 	((ADVERTISE_CONTROL*)(a1->Child))->lastSubMode = 6;
 
   0003e	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
   00041	8b 48 18	 mov	 ecx, DWORD PTR [eax+24]
   00044	c7 41 44 06 00
 	00 00		 mov	 DWORD PTR [ecx+68], 6
 
-; 269  : 	((ADVERTISE_CONTROL*)(a1->Child))->animCount = 14;
+; 294  : 	((ADVERTISE_CONTROL*)(a1->Child))->animCount = 14;
 
   0004b	8b 45 08	 mov	 eax, DWORD PTR _a1$[ebp]
   0004e	8b 48 18	 mov	 ecx, DWORD PTR [eax+24]
@@ -1196,15 +1288,15 @@ _a1$ = 8						; size = 4
 	00 00 00	 movss	 xmm0, DWORD PTR __real@41600000
   00059	f3 0f 11 41 34	 movss	 DWORD PTR [ecx+52], xmm0
 
-; 270  : 	*(float*)0x7C933C = 13;
+; 295  : 	*(float*)0x7C933C = 13;
 
   0005e	f3 0f 10 05 00
 	00 00 00	 movss	 xmm0, DWORD PTR __real@41500000
   00066	f3 0f 11 05 3c
 	93 7c 00	 movss	 DWORD PTR ds:8164156, xmm0
 
-; 271  : 	//Advertise.lastSubMode = 6;
-; 272  : }
+; 296  : 	//Advertise.lastSubMode = 6;
+; 297  : }
 
   0006e	5f		 pop	 edi
   0006f	5e		 pop	 esi
@@ -1224,9 +1316,9 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?ADV_2P_Create@@YAXXZ PROC				; ADV_2P_Create, COMDAT
 
-; 256  : 	__asm
-; 257  : 	{
-; 258  : 		call myCode2;
+; 281  : 	__asm
+; 282  : 	{
+; 283  : 		call myCode2;
 
   00000	ff 15 00 00 00
 	00		 call	 DWORD PTR ?myCode2@@3P6AXPAX@ZA ; myCode2
@@ -1248,7 +1340,7 @@ _trampoline$ = 12					; size = 4
 _overwriteSize$ = 16					; size = 1
 ?CreateTrampoline@@YAPAXPAX0D@Z PROC			; CreateTrampoline, COMDAT
 
-; 228  : {
+; 253  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -1268,15 +1360,15 @@ _overwriteSize$ = 16					; size = 1
   00028	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   0002d	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 229  : 	Hook Hooker;
-; 230  : 	char nopCount = overwriteSize - 0x5;
+; 254  : 	Hook Hooker;
+; 255  : 	char nopCount = overwriteSize - 0x5;
 
   00032	0f be 45 10	 movsx	 eax, BYTE PTR _overwriteSize$[ebp]
   00036	83 e8 05	 sub	 eax, 5
   00039	88 45 e7	 mov	 BYTE PTR _nopCount$[ebp], al
 
-; 231  : 
-; 232  : 	void* myCode = VirtualAlloc(nullptr, overwriteSize + 0x5, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+; 256  : 
+; 257  : 	void* myCode = VirtualAlloc(nullptr, overwriteSize + 0x5, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 
   0003c	8b f4		 mov	 esi, esp
   0003e	6a 40		 push	 64			; 00000040H
@@ -1291,7 +1383,7 @@ _overwriteSize$ = 16					; size = 1
   00057	e8 00 00 00 00	 call	 __RTC_CheckEsp
   0005c	89 45 d8	 mov	 DWORD PTR _myCode$[ebp], eax
 
-; 233  : 	memcpy(myCode, address, overwriteSize);
+; 258  : 	memcpy(myCode, address, overwriteSize);
 
   0005f	0f be 45 10	 movsx	 eax, BYTE PTR _overwriteSize$[ebp]
   00063	50		 push	 eax
@@ -1302,14 +1394,14 @@ _overwriteSize$ = 16					; size = 1
   0006c	e8 00 00 00 00	 call	 _memcpy
   00071	83 c4 0c	 add	 esp, 12			; 0000000cH
 
-; 234  : 	if (nopCount)
+; 259  : 	if (nopCount)
 
   00074	0f be 45 e7	 movsx	 eax, BYTE PTR _nopCount$[ebp]
   00078	85 c0		 test	 eax, eax
   0007a	74 46		 je	 SHORT $LN5@CreateTram
 
-; 235  : 	{
-; 236  : 		void* nopAddress = (void*)((char*)address + (overwriteSize - nopCount));
+; 260  : 	{
+; 261  : 		void* nopAddress = (void*)((char*)address + (overwriteSize - nopCount));
 
   0007c	0f be 45 10	 movsx	 eax, BYTE PTR _overwriteSize$[ebp]
   00080	0f be 4d e7	 movsx	 ecx, BYTE PTR _nopCount$[ebp]
@@ -1317,7 +1409,7 @@ _overwriteSize$ = 16					; size = 1
   00086	03 45 08	 add	 eax, DWORD PTR _address$[ebp]
   00089	89 45 cc	 mov	 DWORD PTR _nopAddress$3[ebp], eax
 
-; 237  : 		for (char i = 0; i < nopCount; ++i)
+; 262  : 		for (char i = 0; i < nopCount; ++i)
 
   0008c	c6 45 c3 00	 mov	 BYTE PTR _i$2[ebp], 0
   00090	eb 08		 jmp	 SHORT $LN4@CreateTram
@@ -1331,13 +1423,13 @@ $LN4@CreateTram:
   000a2	3b c1		 cmp	 eax, ecx
   000a4	7d 1c		 jge	 SHORT $LN5@CreateTram
 
-; 238  : 		{
-; 239  : 			{
-; 240  : 				char data[] = { 0x90 };
+; 263  : 		{
+; 264  : 			{
+; 265  : 				char data[] = { 0x90 };
 
   000a6	c6 45 b7 90	 mov	 BYTE PTR _data$1[ebp], -112 ; ffffff90H
 
-; 241  : 				Hooker.WritePatch((void*)((char*)nopAddress + i), data, 1);
+; 266  : 				Hooker.WritePatch((void*)((char*)nopAddress + i), data, 1);
 
   000aa	6a 01		 push	 1
   000ac	8d 45 b7	 lea	 eax, DWORD PTR _data$1[ebp]
@@ -1348,14 +1440,14 @@ $LN4@CreateTram:
   000b8	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000bb	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 242  : 			}
-; 243  : 		}
+; 267  : 			}
+; 268  : 		}
 
   000c0	eb d0		 jmp	 SHORT $LN2@CreateTram
 $LN5@CreateTram:
 
-; 244  : 	}
-; 245  : 	Hooker.WriteJMP(address, trampoline);
+; 269  : 	}
+; 270  : 	Hooker.WriteJMP(address, trampoline);
 
   000c2	8b 45 0c	 mov	 eax, DWORD PTR _trampoline$[ebp]
   000c5	50		 push	 eax
@@ -1364,7 +1456,7 @@ $LN5@CreateTram:
   000ca	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000cd	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
 
-; 246  : 	Hooker.WriteJMP((void*)((char*)myCode + overwriteSize), (void*)((char*)address + overwriteSize));
+; 271  : 	Hooker.WriteJMP((void*)((char*)myCode + overwriteSize), (void*)((char*)address + overwriteSize));
 
   000d2	0f be 45 10	 movsx	 eax, BYTE PTR _overwriteSize$[ebp]
   000d6	03 45 08	 add	 eax, DWORD PTR _address$[ebp]
@@ -1375,11 +1467,11 @@ $LN5@CreateTram:
   000e2	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000e5	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
 
-; 247  : 	return myCode;
+; 272  : 	return myCode;
 
   000ea	8b 45 d8	 mov	 eax, DWORD PTR _myCode$[ebp]
 
-; 248  : }
+; 273  : }
 
   000ed	52		 push	 edx
   000ee	8b cd		 mov	 ecx, ebp
@@ -1434,21 +1526,21 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?IncChaotixClearItem_ASM@@YAXXZ PROC			; IncChaotixClearItem_ASM, COMDAT
 
-; 218  : 	__asm
-; 219  : 	{
-; 220  : 		push eax;
+; 243  : 	__asm
+; 244  : 	{
+; 245  : 		push eax;
 
   00000	50		 push	 eax
 
-; 221  : 		call IncChaotixClearItem;
+; 246  : 		call IncChaotixClearItem;
 
   00001	e8 00 00 00 00	 call	 ?IncChaotixClearItem@@YAHPAUTObjTeam@@@Z ; IncChaotixClearItem
 
-; 222  : 		add esp, 0x4;
+; 247  : 		add esp, 0x4;
 
   00006	83 c4 04	 add	 esp, 4
 
-; 223  : 		ret
+; 248  : 		ret
 
   00009	c3		 ret	 0
 ?IncChaotixClearItem_ASM@@YAXXZ ENDP			; IncChaotixClearItem_ASM
@@ -1459,21 +1551,21 @@ _TEXT	ENDS
 _TEXT	SEGMENT
 ?SearchStartStageLocator_ASM@@YAXXZ PROC		; SearchStartStageLocator_ASM, COMDAT
 
-; 207  : 	__asm 
-; 208  : 	{
-; 209  : 		push eax;
+; 232  : 	__asm 
+; 233  : 	{
+; 234  : 		push eax;
 
   00000	50		 push	 eax
 
-; 210  : 		call SearchStartStageLocator_Hook;
+; 235  : 		call SearchStartStageLocator_Hook;
 
   00001	e8 00 00 00 00	 call	 ?SearchStartStageLocator_Hook@@YAPADH@Z ; SearchStartStageLocator_Hook
 
-; 211  : 		add esp, 0x4;
+; 236  : 		add esp, 0x4;
 
   00006	83 c4 04	 add	 esp, 4
 
-; 212  : 		ret
+; 237  : 		ret
 
   00009	c3		 ret	 0
 ?SearchStartStageLocator_ASM@@YAXXZ ENDP		; SearchStartStageLocator_ASM
@@ -1486,7 +1578,7 @@ tv76 = -208						; size = 4
 _t$ = 8							; size = 4
 ?IncChaotixClearItem@@YAHPAUTObjTeam@@@Z PROC		; IncChaotixClearItem, COMDAT
 
-; 195  : {
+; 220  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -1503,25 +1595,25 @@ _t$ = 8							; size = 4
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 196  : 	int v1;
-; 197  : 
-; 198  : 	*(char*)0x9DD6F2 = *(char*)0x9DD70A;
+; 221  : 	int v1;
+; 222  : 
+; 223  : 	*(char*)0x9DD6F2 = *(char*)0x9DD70A;
 
   00028	a0 0a d7 9d 00	 mov	 al, BYTE PTR ds:10344202
   0002d	a2 f2 d6 9d 00	 mov	 BYTE PTR ds:10344178, al
 
-; 199  : 	*(char*)0x9DD6F1 = *(char*)0x9DD709; //for now am lazy
+; 224  : 	*(char*)0x9DD6F1 = *(char*)0x9DD709; //for now am lazy
 
   00032	a0 09 d7 9d 00	 mov	 al, BYTE PTR ds:10344201
   00037	a2 f1 d6 9d 00	 mov	 BYTE PTR ds:10344177, al
 
-; 200  : 	*(char*)0x9DD6F0 = *(char*)0x9DD708;
+; 225  : 	*(char*)0x9DD6F0 = *(char*)0x9DD708;
 
   0003c	a0 08 d7 9d 00	 mov	 al, BYTE PTR ds:10344200
   00041	a2 f0 d6 9d 00	 mov	 BYTE PTR ds:10344176, al
 
-; 201  : 
-; 202  : 	return ++teamTOp[0]->chaotixClearItem;
+; 226  : 
+; 227  : 	return ++teamTOp[0]->chaotixClearItem;
 
   00046	b8 04 00 00 00	 mov	 eax, 4
   0004b	6b c8 00	 imul	 ecx, eax, 0
@@ -1545,7 +1637,7 @@ _t$ = 8							; size = 4
   00083	8b 85 30 ff ff
 	ff		 mov	 eax, DWORD PTR tv76[ebp]
 
-; 203  : }
+; 228  : }
 
   00089	5f		 pop	 edi
   0008a	5e		 pop	 esi
@@ -1569,7 +1661,7 @@ _stageNoIndex_HHC$ = -8					; size = 4
 _teamKind$ = 8						; size = 4
 ?SearchStartStageLocator_Hook@@YAPADH@Z PROC		; SearchStartStageLocator_Hook, COMDAT
 
-; 132  : {
+; 157  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -1586,19 +1678,19 @@ _teamKind$ = 8						; size = 4
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 133  : 	unsigned int stageNoIndex_HHC; // ecx
-; 134  : 	char* result; // eax
-; 135  : 	unsigned int v4; // eax
-; 136  : 	int playerNoIndex_HHC; // edx
-; 137  : 	TObjTeam* v6; // eax
-; 138  : 	int* v7; // eax
-; 139  : 	
-; 140  : 	stageNoIndex_HHC = 0;
+; 158  : 	unsigned int stageNoIndex_HHC; // ecx
+; 159  : 	char* result; // eax
+; 160  : 	unsigned int v4; // eax
+; 161  : 	int playerNoIndex_HHC; // edx
+; 162  : 	TObjTeam* v6; // eax
+; 163  : 	int* v7; // eax
+; 164  : 	
+; 165  : 	stageNoIndex_HHC = 0;
 
   00028	c7 45 f8 00 00
 	00 00		 mov	 DWORD PTR _stageNoIndex_HHC$[ebp], 0
 
-; 141  : 	if (pModeSwitch->demoMode && *(int*)&DemoLocator[0x1C * teamKind + 0x18])
+; 166  : 	if (pModeSwitch->demoMode && *(int*)&DemoLocator[0x1C * teamKind + 0x18])
 
   0002f	a1 00 00 00 00	 mov	 eax, DWORD PTR ?pModeSwitch@@3AAPAUMODESWITCH@@A ; pModeSwitch
   00034	8b 08		 mov	 ecx, DWORD PTR [eax]
@@ -1612,8 +1704,8 @@ _teamKind$ = 8						; size = 4
   0004a	83 7c 02 18 00	 cmp	 DWORD PTR [edx+eax+24], 0
   0004f	74 10		 je	 SHORT $LN4@SearchStar
 
-; 142  : 	{
-; 143  : 		return &DemoLocator[0x1C * teamKind];
+; 167  : 	{
+; 168  : 		return &DemoLocator[0x1C * teamKind];
 
   00051	6b 45 08 1c	 imul	 eax, DWORD PTR _teamKind$[ebp], 28
   00055	8b 0d 00 00 00
@@ -1623,47 +1715,47 @@ _teamKind$ = 8						; size = 4
   0005f	eb 5c		 jmp	 SHORT $LN1@SearchStar
 $LN4@SearchStar:
 
-; 144  : 	}
-; 145  : 	/*if (pModeSwitch->is2PMode)
-; 146  : 	{
-; 147  : 		playerNoIndex_HHC = 0;
-; 148  : 		while (1)
-; 149  : 		{
-; 150  : 			v6 = teamTOp[playerNoIndex_HHC];
-; 151  : 			if (v6)
-; 152  : 			{
-; 153  : 				if (v6->teamKind == teamKind && stageNoIndex_HHC < 0x17)
-; 154  : 				{
-; 155  : 					break;
-; 156  : 				}
-; 157  : 			}
-; 158  : 		LABEL_17:
-; 159  : 			if (++playerNoIndex_HHC >= 4)
-; 160  : 			{
-; 161  : 				return 0;
-; 162  : 			}
-; 163  : 		}
-; 164  : 		v7 = &gStartStageLocator2p[0xF * stageNoIndex_HHC];
-; 165  : 		while (*v7 != Action.stageNo)
-; 166  : 		{
-; 167  : 			++stageNoIndex_HHC;
-; 168  : 			v7 += 0xF;
-; 169  : 			if (stageNoIndex_HHC >= 0x17)
-; 170  : 			{
-; 171  : 				goto LABEL_17;
-; 172  : 			}
-; 173  : 		}
-; 174  : 		result = (char*)&gStartStageLocator2p[0xF * stageNoIndex_HHC + 1 + 7 * playerNoIndex_HHC];
-; 175  : 	}*/
-; 176  : 	//else
-; 177  : 	{
-; 178  : 		v4 = 0;
+; 169  : 	}
+; 170  : 	/*if (pModeSwitch->is2PMode)
+; 171  : 	{
+; 172  : 		playerNoIndex_HHC = 0;
+; 173  : 		while (1)
+; 174  : 		{
+; 175  : 			v6 = teamTOp[playerNoIndex_HHC];
+; 176  : 			if (v6)
+; 177  : 			{
+; 178  : 				if (v6->teamKind == teamKind && stageNoIndex_HHC < 0x17)
+; 179  : 				{
+; 180  : 					break;
+; 181  : 				}
+; 182  : 			}
+; 183  : 		LABEL_17:
+; 184  : 			if (++playerNoIndex_HHC >= 4)
+; 185  : 			{
+; 186  : 				return 0;
+; 187  : 			}
+; 188  : 		}
+; 189  : 		v7 = &gStartStageLocator2p[0xF * stageNoIndex_HHC];
+; 190  : 		while (*v7 != Action.stageNo)
+; 191  : 		{
+; 192  : 			++stageNoIndex_HHC;
+; 193  : 			v7 += 0xF;
+; 194  : 			if (stageNoIndex_HHC >= 0x17)
+; 195  : 			{
+; 196  : 				goto LABEL_17;
+; 197  : 			}
+; 198  : 		}
+; 199  : 		result = (char*)&gStartStageLocator2p[0xF * stageNoIndex_HHC + 1 + 7 * playerNoIndex_HHC];
+; 200  : 	}*/
+; 201  : 	//else
+; 202  : 	{
+; 203  : 		v4 = 0;
 
   00061	c7 45 e0 00 00
 	00 00		 mov	 DWORD PTR _v4$[ebp], 0
 $LN2@SearchStar:
 
-; 179  : 		while (gStartStageLocator[v4] != Action.stageNo)
+; 204  : 		while (gStartStageLocator[v4] != Action.stageNo)
 
   00068	8b 45 e0	 mov	 eax, DWORD PTR _v4$[ebp]
   0006b	8b 0d 00 00 00
@@ -1674,40 +1766,40 @@ $LN2@SearchStar:
   0007a	3b 42 28	 cmp	 eax, DWORD PTR [edx+40]
   0007d	74 21		 je	 SHORT $LN3@SearchStar
 
-; 180  : 		{
-; 181  : 			v4 += 0x24;
+; 205  : 		{
+; 206  : 			v4 += 0x24;
 
   0007f	8b 45 e0	 mov	 eax, DWORD PTR _v4$[ebp]
   00082	83 c0 24	 add	 eax, 36			; 00000024H
   00085	89 45 e0	 mov	 DWORD PTR _v4$[ebp], eax
 
-; 182  : 			++stageNoIndex_HHC;
+; 207  : 			++stageNoIndex_HHC;
 
   00088	8b 45 f8	 mov	 eax, DWORD PTR _stageNoIndex_HHC$[ebp]
   0008b	83 c0 01	 add	 eax, 1
   0008e	89 45 f8	 mov	 DWORD PTR _stageNoIndex_HHC$[ebp], eax
 
-; 183  : 			if (v4 >= 0x57C)
+; 208  : 			if (v4 >= 0x57C)
 
   00091	81 7d e0 7c 05
 	00 00		 cmp	 DWORD PTR _v4$[ebp], 1404 ; 0000057cH
   00098	72 04		 jb	 SHORT $LN5@SearchStar
 
-; 184  : 			{
-; 185  : 				return 0;
+; 209  : 			{
+; 210  : 				return 0;
 
   0009a	33 c0		 xor	 eax, eax
   0009c	eb 1f		 jmp	 SHORT $LN1@SearchStar
 $LN5@SearchStar:
 
-; 186  : 
-; 187  : 			}
-; 188  : 		}
+; 211  : 
+; 212  : 			}
+; 213  : 		}
 
   0009e	eb c8		 jmp	 SHORT $LN2@SearchStar
 $LN3@SearchStar:
 
-; 189  : 		result = (char*)&gStartStageLocator[0x24 * stageNoIndex_HHC + 1 + 7 * layoutTeamKind];
+; 214  : 		result = (char*)&gStartStageLocator[0x24 * stageNoIndex_HHC + 1 + 7 * layoutTeamKind];
 
   000a0	6b 45 f8 24	 imul	 eax, DWORD PTR _stageNoIndex_HHC$[ebp], 36
   000a4	6b 0d 00 00 00
@@ -1717,13 +1809,13 @@ $LN3@SearchStar:
   000b4	8d 0c 90	 lea	 ecx, DWORD PTR [eax+edx*4]
   000b7	89 4d ec	 mov	 DWORD PTR _result$[ebp], ecx
 
-; 190  : 	}
-; 191  : 	return result;
+; 215  : 	}
+; 216  : 	return result;
 
   000ba	8b 45 ec	 mov	 eax, DWORD PTR _result$[ebp]
 $LN1@SearchStar:
 
-; 192  : }
+; 217  : }
 
   000bd	5f		 pop	 edi
   000be	5e		 pop	 esi
@@ -1747,7 +1839,7 @@ _ul_reason_for_call$ = 12				; size = 4
 _lpReserved$ = 16					; size = 4
 _DllMain@12 PROC					; COMDAT
 
-; 101  : {
+; 126  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
@@ -1764,36 +1856,36 @@ _DllMain@12 PROC					; COMDAT
   0001e	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   00023	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 102  : 	switch (ul_reason_for_call)
+; 127  : 	switch (ul_reason_for_call)
 
   00028	8b 45 0c	 mov	 eax, DWORD PTR _ul_reason_for_call$[ebp]
   0002b	89 85 3c ff ff
 	ff		 mov	 DWORD PTR tv64[ebp], eax
 
-; 103  : 	{
-; 104  : 		case DLL_PROCESS_ATTACH:
-; 105  : 		{
-; 106  : 			//Init();
-; 107  : 			break;
-; 108  : 		}
-; 109  : 		case DLL_THREAD_ATTACH:
-; 110  : 		{
-; 111  : 			break;
-; 112  : 		}
-; 113  : 		case DLL_THREAD_DETACH:
-; 114  : 		{
-; 115  : 			break;
-; 116  : 		}
-; 117  : 		case DLL_PROCESS_DETACH:
-; 118  : 		{
-; 119  : 			break;
-; 120  : 		}
-; 121  : 	}
-; 122  : 	return TRUE;
+; 128  : 	{
+; 129  : 		case DLL_PROCESS_ATTACH:
+; 130  : 		{
+; 131  : 			//Init();
+; 132  : 			break;
+; 133  : 		}
+; 134  : 		case DLL_THREAD_ATTACH:
+; 135  : 		{
+; 136  : 			break;
+; 137  : 		}
+; 138  : 		case DLL_THREAD_DETACH:
+; 139  : 		{
+; 140  : 			break;
+; 141  : 		}
+; 142  : 		case DLL_PROCESS_DETACH:
+; 143  : 		{
+; 144  : 			break;
+; 145  : 		}
+; 146  : 	}
+; 147  : 	return TRUE;
 
   00031	b8 01 00 00 00	 mov	 eax, 1
 
-; 123  : }
+; 148  : }
 
   00036	5f		 pop	 edi
   00037	5e		 pop	 esi
@@ -1811,39 +1903,40 @@ _TEXT	ENDS
 ; File C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp
 ;	COMDAT _Init
 _TEXT	SEGMENT
-_data$1 = -236						; size = 4
-_data$2 = -224						; size = 7
-_data$3 = -208						; size = 7
-_data$4 = -192						; size = 6
-_data$5 = -176						; size = 4
-_data$6 = -161						; size = 1
-_data$7 = -152						; size = 7
-_data$8 = -136						; size = 2
-_data$9 = -124						; size = 2
-_data$10 = -112						; size = 3
-_data$11 = -97						; size = 1
-_data$12 = -85						; size = 1
-_data$13 = -73						; size = 1
-_data$14 = -61						; size = 1
-_data$15 = -49						; size = 1
-_data$16 = -37						; size = 1
-_data$17 = -28						; size = 2
+_data$1 = -248						; size = 4
+_data$2 = -236						; size = 7
+_data$3 = -220						; size = 7
+_data$4 = -204						; size = 6
+_data$5 = -188						; size = 4
+_data$6 = -173						; size = 1
+_data$7 = -164						; size = 3
+_data$8 = -152						; size = 7
+_data$9 = -136						; size = 2
+_data$10 = -124						; size = 2
+_data$11 = -112						; size = 3
+_data$12 = -97						; size = 1
+_data$13 = -85						; size = 1
+_data$14 = -73						; size = 1
+_data$15 = -61						; size = 1
+_data$16 = -49						; size = 1
+_data$17 = -37						; size = 1
+_data$18 = -28						; size = 2
 _Hooker$ = -16						; size = 8
 __$ArrayPad$ = -4					; size = 4
 _Init	PROC						; COMDAT
 
-; 525  : {
+; 569  : {
 
   00000	55		 push	 ebp
   00001	8b ec		 mov	 ebp, esp
-  00003	81 ec b0 01 00
-	00		 sub	 esp, 432		; 000001b0H
+  00003	81 ec bc 01 00
+	00		 sub	 esp, 444		; 000001bcH
   00009	53		 push	 ebx
   0000a	56		 push	 esi
   0000b	57		 push	 edi
-  0000c	8d bd 50 fe ff
-	ff		 lea	 edi, DWORD PTR [ebp-432]
-  00012	b9 6c 00 00 00	 mov	 ecx, 108		; 0000006cH
+  0000c	8d bd 44 fe ff
+	ff		 lea	 edi, DWORD PTR [ebp-444]
+  00012	b9 6f 00 00 00	 mov	 ecx, 111		; 0000006fH
   00017	b8 cc cc cc cc	 mov	 eax, -858993460		; ccccccccH
   0001c	f3 ab		 rep stosd
   0001e	a1 00 00 00 00	 mov	 eax, DWORD PTR ___security_cookie
@@ -1852,9 +1945,9 @@ _Init	PROC						; COMDAT
   00028	b9 00 00 00 00	 mov	 ecx, OFFSET __1BA9ED96_dllmain@cpp
   0002d	e8 00 00 00 00	 call	 @__CheckForDebuggerJustMyCode@4
 
-; 526  : 	Hook Hooker;
-; 527  : 
-; 528  : 	Hooker.Replace(0x5865E0, MakePlayersKeyData);
+; 570  : 	Hook Hooker;
+; 571  : 
+; 572  : 	Hooker.Replace(0x5865E0, MakePlayersKeyData);
 
   00032	6a 00		 push	 0
   00034	68 00 00 00 00	 push	 OFFSET ?MakePlayersKeyData@@YAXXZ ; MakePlayersKeyData
@@ -1862,7 +1955,7 @@ _Init	PROC						; COMDAT
   0003e	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00041	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 529  : 	Hooker.Replace(0x435550, MakeGameKeyData);
+; 573  : 	Hooker.Replace(0x435550, MakeGameKeyData);
 
   00046	6a 00		 push	 0
   00048	68 00 00 00 00	 push	 OFFSET ?MakeGameKeyData@@YAPAFXZ ; MakeGameKeyData
@@ -1870,7 +1963,7 @@ _Init	PROC						; COMDAT
   00052	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00055	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 530  : 	Hooker.Replace(0x427510, MAIN::InitModules);
+; 574  : 	Hooker.Replace(0x427510, MAIN::InitModules);
 
   0005a	6a 00		 push	 0
   0005c	68 00 00 00 00	 push	 OFFSET ?InitModules@MAIN@@SAHXZ ; MAIN::InitModules
@@ -1878,7 +1971,7 @@ _Init	PROC						; COMDAT
   00066	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00069	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 531  : 	Hooker.Replace(0x444D20, PCSpecific::SetupDInput);
+; 575  : 	Hooker.Replace(0x444D20, PCSpecific::SetupDInput);
 
   0006e	6a 00		 push	 0
   00070	68 00 00 00 00	 push	 OFFSET ?SetupDInput@PCSpecific@@YAJXZ ; PCSpecific::SetupDInput
@@ -1886,7 +1979,7 @@ _Init	PROC						; COMDAT
   0007a	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   0007d	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 532  : 	Hooker.Replace(0x5C9C10, ChangeModeFormationFly_Hook);
+; 576  : 	Hooker.Replace(0x5C9C10, ChangeModeFormationFly_Hook);
 
   00082	6a 00		 push	 0
   00084	68 00 00 00 00	 push	 OFFSET ?ChangeModeFormationFly_Hook@@YAXXZ ; ChangeModeFormationFly_Hook
@@ -1894,7 +1987,7 @@ _Init	PROC						; COMDAT
   0008e	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00091	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 533  : 	Hooker.Replace(0x463A60, SetArrowPosition_hook);
+; 577  : 	Hooker.Replace(0x463A60, SetArrowPosition_hook);
 
   00096	6a 00		 push	 0
   00098	68 00 00 00 00	 push	 OFFSET ?SetArrowPosition_hook@@YAXPAUTObjBobsleigh@@@Z ; SetArrowPosition_hook
@@ -1902,7 +1995,7 @@ _Init	PROC						; COMDAT
   000a2	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000a5	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 534  : 	Hooker.Replace(0x4198D0, CLASS_DVDREAD::Start);
+; 578  : 	Hooker.Replace(0x4198D0, CLASS_DVDREAD::Start);
 
   000aa	6a 00		 push	 0
   000ac	68 00 00 00 00	 push	 OFFSET ?Start@CLASS_DVDREAD@@YGPAHPAH@Z ; CLASS_DVDREAD::Start
@@ -1910,7 +2003,7 @@ _Init	PROC						; COMDAT
   000b6	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000b9	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 535  : 	Hooker.Replace(0x465BB0, initObjS31Bob);
+; 579  : 	Hooker.Replace(0x465BB0, initObjS31Bob);
 
   000be	6a 00		 push	 0
   000c0	68 00 00 00 00	 push	 OFFSET ?initObjS31Bob@@YAXXZ ; initObjS31Bob
@@ -1918,7 +2011,7 @@ _Init	PROC						; COMDAT
   000ca	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000cd	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 536  : 	Hooker.Replace(0x5B3917, arrowdisptest_hook);
+; 580  : 	Hooker.Replace(0x5B3917, arrowdisptest_hook);
 
   000d2	6a 00		 push	 0
   000d4	68 00 00 00 00	 push	 OFFSET ?arrowdisptest_hook@@YAXXZ ; arrowdisptest_hook
@@ -1926,7 +2019,7 @@ _Init	PROC						; COMDAT
   000de	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000e1	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 537  : 	Hooker.Replace(0x404DB0, addFrame_Hook);
+; 581  : 	Hooker.Replace(0x404DB0, addFrame_Hook);
 
   000e6	6a 00		 push	 0
   000e8	68 00 00 00 00	 push	 OFFSET ?addFrame_Hook@@YAXHPAUACTION@@@Z ; addFrame_Hook
@@ -1934,8 +2027,8 @@ _Init	PROC						; COMDAT
   000f2	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   000f5	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 538  : 	//Hooker.Replace(0x40206E, initObjS31Bob);
-; 539  : 	Hooker.Replace(0x43E1B0, setobjCheckRangeOut2_hook);
+; 582  : 	//Hooker.Replace(0x40206E, initObjS31Bob);
+; 583  : 	Hooker.Replace(0x43E1B0, setobjCheckRangeOut2_hook);
 
   000fa	6a 00		 push	 0
   000fc	68 00 00 00 00	 push	 OFFSET ?setobjCheckRangeOut2_hook@@YAXPAURwV3d@@M@Z ; setobjCheckRangeOut2_hook
@@ -1943,7 +2036,7 @@ _Init	PROC						; COMDAT
   00106	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00109	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 540  : 	Hooker.Replace(0x503000, TObjS11Warp_Exec_Hook);
+; 584  : 	Hooker.Replace(0x503000, TObjS11Warp_Exec_Hook);
 
   0010e	6a 00		 push	 0
   00110	68 00 00 00 00	 push	 OFFSET ?TObjS11Warp_Exec_Hook@@YAXXZ ; TObjS11Warp_Exec_Hook
@@ -1951,7 +2044,7 @@ _Init	PROC						; COMDAT
   0011a	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   0011d	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 541  : 	Hooker.Replace(0x48AE70, TObjWarp_Exec_Hook);
+; 585  : 	Hooker.Replace(0x48AE70, TObjWarp_Exec_Hook);
 
   00122	6a 00		 push	 0
   00124	68 00 00 00 00	 push	 OFFSET ?TObjWarp_Exec_Hook@@YAXXZ ; TObjWarp_Exec_Hook
@@ -1959,7 +2052,7 @@ _Init	PROC						; COMDAT
   0012e	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00131	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 542  : 	Hooker.Replace(0x404700, InitStageAndTeamInfo);
+; 586  : 	Hooker.Replace(0x404700, InitStageAndTeamInfo);
 
   00136	6a 00		 push	 0
   00138	68 00 00 00 00	 push	 OFFSET ?InitStageAndTeamInfo@@YAXXZ ; InitStageAndTeamInfo
@@ -1967,7 +2060,7 @@ _Init	PROC						; COMDAT
   00142	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00145	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 543  : 	Hooker.Replace(0x426F10, SearchStartStageLocator_ASM);
+; 587  : 	Hooker.Replace(0x426F10, SearchStartStageLocator_ASM);
 
   0014a	6a 00		 push	 0
   0014c	68 00 00 00 00	 push	 OFFSET ?SearchStartStageLocator_ASM@@YAXXZ ; SearchStartStageLocator_ASM
@@ -1975,7 +2068,7 @@ _Init	PROC						; COMDAT
   00156	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00159	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 544  : 	Hooker.Replace(0x4DA6AA, TObjTrainCore_Exec_ASM);
+; 588  : 	Hooker.Replace(0x4DA6AA, TObjTrainCore_Exec_ASM);
 
   0015e	6a 00		 push	 0
   00160	68 00 00 00 00	 push	 OFFSET ?TObjTrainCore_Exec_ASM@@YAXXZ ; TObjTrainCore_Exec_ASM
@@ -1983,603 +2076,641 @@ _Init	PROC						; COMDAT
   0016a	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   0016d	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 545  : 
-; 546  : 
-; 547  : 
-; 548  : 	// Dirty Hax For Now //
-; 549  : 	{
-; 550  : 		short data = 0x9090;
+; 589  : 
+; 590  : 
+; 591  : 
+; 592  : 	// Dirty Hax For Now //
+; 593  : 	{
+; 594  : 		short data = 0x9090;
 
   00172	b8 90 90 ff ff	 mov	 eax, -28528		; ffff9090H
-  00177	66 89 45 e4	 mov	 WORD PTR _data$17[ebp], ax
+  00177	66 89 45 e4	 mov	 WORD PTR _data$18[ebp], ax
 
-; 551  : 		Hooker.WritePatch((void*)0x426F48, (char*)&data, 2); //multiplayer start position patch
+; 595  : 		Hooker.WritePatch((void*)0x426F48, (char*)&data, 2); //multiplayer start position patch
 
   0017b	6a 02		 push	 2
-  0017d	8d 45 e4	 lea	 eax, DWORD PTR _data$17[ebp]
+  0017d	8d 45 e4	 lea	 eax, DWORD PTR _data$18[ebp]
   00180	50		 push	 eax
   00181	68 48 6f 42 00	 push	 4353864			; 00426f48H
   00186	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00189	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 552  : 	}
-; 553  : 
-; 554  : 	{
-; 555  : 		char data = 0xEB;
+; 596  : 	}
+; 597  : 
+; 598  : 	{
+; 599  : 		char data = 0xEB;
 
-  0018e	c6 45 db eb	 mov	 BYTE PTR _data$16[ebp], -21 ; ffffffebH
+  0018e	c6 45 db eb	 mov	 BYTE PTR _data$17[ebp], -21 ; ffffffebH
 
-; 556  : 		Hooker.WritePatch((void*)0x557ADA, &data, 1); //Skip a check that calls TObjTeam::TObjTeam() if its not "2PMode" for team battles
+; 600  : 		Hooker.WritePatch((void*)0x557ADA, &data, 1); //Skip a check that calls TObjTeam::TObjTeam() if its not "2PMode" for team battles
 
   00192	6a 01		 push	 1
-  00194	8d 45 db	 lea	 eax, DWORD PTR _data$16[ebp]
+  00194	8d 45 db	 lea	 eax, DWORD PTR _data$17[ebp]
   00197	50		 push	 eax
   00198	68 da 7a 55 00	 push	 5602010			; 00557adaH
   0019d	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   001a0	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 557  : 	}
-; 558  : 
-; 559  : 	{
-; 560  : 		char data = 0xEB;
+; 601  : 	}
+; 602  : 
+; 603  : 	{
+; 604  : 		char data = 0xEB;
 
-  001a5	c6 45 cf eb	 mov	 BYTE PTR _data$15[ebp], -21 ; ffffffebH
+  001a5	c6 45 cf eb	 mov	 BYTE PTR _data$16[ebp], -21 ; ffffffebH
 
-; 561  : 		Hooker.WritePatch((void*)0x5AB053, &data, 1); //Skip a check that calls SetGame2PManager()
+; 605  : 		Hooker.WritePatch((void*)0x5AB053, &data, 1); //Skip a check that calls SetGame2PManager()
 
   001a9	6a 01		 push	 1
-  001ab	8d 45 cf	 lea	 eax, DWORD PTR _data$15[ebp]
+  001ab	8d 45 cf	 lea	 eax, DWORD PTR _data$16[ebp]
   001ae	50		 push	 eax
   001af	68 53 b0 5a 00	 push	 5943379			; 005ab053H
   001b4	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   001b7	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 562  : 	}
-; 563  : 
-; 564  : 	{
-; 565  : 		char data = 0xEB;
+; 606  : 	}
+; 607  : 
+; 608  : 	{
+; 609  : 		char data = 0xEB;
 
-  001bc	c6 45 c3 eb	 mov	 BYTE PTR _data$14[ebp], -21 ; ffffffebH
+  001bc	c6 45 c3 eb	 mov	 BYTE PTR _data$15[ebp], -21 ; ffffffebH
 
-; 566  : 		Hooker.WritePatch((void*)0x41DD51, &data, 1);
+; 610  : 		Hooker.WritePatch((void*)0x41DD51, &data, 1);
 
   001c0	6a 01		 push	 1
-  001c2	8d 45 c3	 lea	 eax, DWORD PTR _data$14[ebp]
+  001c2	8d 45 c3	 lea	 eax, DWORD PTR _data$15[ebp]
   001c5	50		 push	 eax
   001c6	68 51 dd 41 00	 push	 4316497			; 0041dd51H
   001cb	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   001ce	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 567  : 	}
-; 568  : 
-; 569  : 	{
-; 570  : 		char data = 0xEB;
+; 611  : 	}
+; 612  : 
+; 613  : 	{
+; 614  : 		char data = 0xEB;
 
-  001d3	c6 45 b7 eb	 mov	 BYTE PTR _data$13[ebp], -21 ; ffffffebH
+  001d3	c6 45 b7 eb	 mov	 BYTE PTR _data$14[ebp], -21 ; ffffffebH
 
-; 571  : 		Hooker.WritePatch((void*)0x5AB6EA, &data, 1); //Skip a check that calls SetGame2PManager()
+; 615  : 		Hooker.WritePatch((void*)0x5AB6EA, &data, 1); //Skip a check that calls SetGame2PManager()
 
   001d7	6a 01		 push	 1
-  001d9	8d 45 b7	 lea	 eax, DWORD PTR _data$13[ebp]
+  001d9	8d 45 b7	 lea	 eax, DWORD PTR _data$14[ebp]
   001dc	50		 push	 eax
   001dd	68 ea b6 5a 00	 push	 5945066			; 005ab6eaH
   001e2	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   001e5	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 572  : 	}
-; 573  : 
-; 574  : 	{
-; 575  : 		char data = 0x06;
+; 616  : 	}
+; 617  : 
+; 618  : 	{
+; 619  : 		char data = 0x06;
 
-  001ea	c6 45 ab 06	 mov	 BYTE PTR _data$12[ebp], 6
+  001ea	c6 45 ab 06	 mov	 BYTE PTR _data$13[ebp], 6
 
-; 576  : 		Hooker.WritePatch((void*)0x44737A, &data, 1); //bring up character select on first 2p page
+; 620  : 		Hooker.WritePatch((void*)0x44737A, &data, 1); //bring up character select on first 2p page
 
   001ee	6a 01		 push	 1
-  001f0	8d 45 ab	 lea	 eax, DWORD PTR _data$12[ebp]
+  001f0	8d 45 ab	 lea	 eax, DWORD PTR _data$13[ebp]
   001f3	50		 push	 eax
   001f4	68 7a 73 44 00	 push	 4486010			; 0044737aH
   001f9	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   001fc	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 577  : 	}
-; 578  : 
-; 579  : 	{
-; 580  : 		char data = 0x02;
+; 621  : 	}
+; 622  : 
+; 623  : 	{
+; 624  : 		char data = 0x02;
 
-  00201	c6 45 9f 02	 mov	 BYTE PTR _data$11[ebp], 2
+  00201	c6 45 9f 02	 mov	 BYTE PTR _data$12[ebp], 2
 
-; 581  : 		Hooker.WritePatch((void*)0x447C81, &data, 1); //goto challange after picking characters
+; 625  : 		Hooker.WritePatch((void*)0x447C81, &data, 1); //goto challange after picking characters
 
   00205	6a 01		 push	 1
-  00207	8d 45 9f	 lea	 eax, DWORD PTR _data$11[ebp]
+  00207	8d 45 9f	 lea	 eax, DWORD PTR _data$12[ebp]
   0020a	50		 push	 eax
   0020b	68 81 7c 44 00	 push	 4488321			; 00447c81H
   00210	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00213	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 582  : 	}
-; 583  : 
-; 584  : 	{
-; 585  : 		char data[] = { 0xB1, 0x02, 0x90 };
+; 626  : 	}
+; 627  : 
+; 628  : 	{
+; 629  : 		char data[] = { 0xB1, 0x02, 0x90 };
 
-  00218	c6 45 90 b1	 mov	 BYTE PTR _data$10[ebp], -79 ; ffffffb1H
-  0021c	c6 45 91 02	 mov	 BYTE PTR _data$10[ebp+1], 2
-  00220	c6 45 92 90	 mov	 BYTE PTR _data$10[ebp+2], -112 ; ffffff90H
+  00218	c6 45 90 b1	 mov	 BYTE PTR _data$11[ebp], -79 ; ffffffb1H
+  0021c	c6 45 91 02	 mov	 BYTE PTR _data$11[ebp+1], 2
+  00220	c6 45 92 90	 mov	 BYTE PTR _data$11[ebp+2], -112 ; ffffff90H
 
-; 586  : 		Hooker.WritePatch((void*)0x4BA322, data, 3); //allow p2 to control casino flippers
+; 630  : 		Hooker.WritePatch((void*)0x4BA322, data, 3); //allow p2 to control casino flippers
 
   00224	6a 03		 push	 3
-  00226	8d 45 90	 lea	 eax, DWORD PTR _data$10[ebp]
+  00226	8d 45 90	 lea	 eax, DWORD PTR _data$11[ebp]
   00229	50		 push	 eax
   0022a	68 22 a3 4b 00	 push	 4956962			; 004ba322H
   0022f	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00232	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 587  : 	}
-; 588  : 
-; 589  : 	{
-; 590  : 		char data[] = { 0x90, 0x90 };
+; 631  : 	}
+; 632  : 
+; 633  : 	{
+; 634  : 		char data[] = { 0x90, 0x90 };
 
-  00237	c6 45 84 90	 mov	 BYTE PTR _data$9[ebp], -112 ; ffffff90H
-  0023b	c6 45 85 90	 mov	 BYTE PTR _data$9[ebp+1], -112 ; ffffff90H
+  00237	c6 45 84 90	 mov	 BYTE PTR _data$10[ebp], -112 ; ffffff90H
+  0023b	c6 45 85 90	 mov	 BYTE PTR _data$10[ebp+1], -112 ; ffffff90H
 
-; 591  : 		Hooker.WritePatch((void*)0x4029F2, data, 2); //dirty rank screen patch to make it show
+; 635  : 		Hooker.WritePatch((void*)0x4029F2, data, 2); //dirty rank screen patch to make it show
 
   0023f	6a 02		 push	 2
-  00241	8d 45 84	 lea	 eax, DWORD PTR _data$9[ebp]
+  00241	8d 45 84	 lea	 eax, DWORD PTR _data$10[ebp]
   00244	50		 push	 eax
   00245	68 f2 29 40 00	 push	 4205042			; 004029f2H
   0024a	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   0024d	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 592  : 	}
-; 593  : 
-; 594  : 	{
-; 595  : 		char data[] = { 0x90, 0x90 };
+; 636  : 	}
+; 637  : 
+; 638  : 	{
+; 639  : 		char data[] = { 0x90, 0x90 };
 
   00252	c6 85 78 ff ff
-	ff 90		 mov	 BYTE PTR _data$8[ebp], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$9[ebp], -112 ; ffffff90H
   00259	c6 85 79 ff ff
-	ff 90		 mov	 BYTE PTR _data$8[ebp+1], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$9[ebp+1], -112 ; ffffff90H
 
-; 596  : 		Hooker.WritePatch((void*)0x402A21, data, 2); //dirty rank screen patch to make it show
+; 640  : 		Hooker.WritePatch((void*)0x402A21, data, 2); //dirty rank screen patch to make it show
 
   00260	6a 02		 push	 2
   00262	8d 85 78 ff ff
-	ff		 lea	 eax, DWORD PTR _data$8[ebp]
+	ff		 lea	 eax, DWORD PTR _data$9[ebp]
   00268	50		 push	 eax
   00269	68 21 2a 40 00	 push	 4205089			; 00402a21H
   0026e	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   00271	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 597  : 	}
-; 598  : 
-; 599  : 	{
-; 600  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 }; // nop setobjdestroy for train after breaking
+; 641  : 	}
+; 642  : 
+; 643  : 	{
+; 644  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 }; // nop setobjdestroy for train after breaking
 
   00276	c6 85 68 ff ff
-	ff 90		 mov	 BYTE PTR _data$7[ebp], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$8[ebp], -112 ; ffffff90H
   0027d	c6 85 69 ff ff
-	ff 90		 mov	 BYTE PTR _data$7[ebp+1], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$8[ebp+1], -112 ; ffffff90H
   00284	c6 85 6a ff ff
-	ff 90		 mov	 BYTE PTR _data$7[ebp+2], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$8[ebp+2], -112 ; ffffff90H
   0028b	c6 85 6b ff ff
-	ff 90		 mov	 BYTE PTR _data$7[ebp+3], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$8[ebp+3], -112 ; ffffff90H
   00292	c6 85 6c ff ff
-	ff 90		 mov	 BYTE PTR _data$7[ebp+4], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$8[ebp+4], -112 ; ffffff90H
   00299	c6 85 6d ff ff
-	ff 90		 mov	 BYTE PTR _data$7[ebp+5], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$8[ebp+5], -112 ; ffffff90H
   002a0	c6 85 6e ff ff
-	ff 90		 mov	 BYTE PTR _data$7[ebp+6], -112 ; ffffff90H
+	ff 90		 mov	 BYTE PTR _data$8[ebp+6], -112 ; ffffff90H
 
-; 601  : 		Hooker.WritePatch((void*)0x4DA6AF, data, 7);
+; 645  : 		Hooker.WritePatch((void*)0x4DA6AF, data, 7);
 
   002a7	6a 07		 push	 7
   002a9	8d 85 68 ff ff
-	ff		 lea	 eax, DWORD PTR _data$7[ebp]
+	ff		 lea	 eax, DWORD PTR _data$8[ebp]
   002af	50		 push	 eax
   002b0	68 af a6 4d 00	 push	 5088943			; 004da6afH
   002b5	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
   002b8	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 602  : 	}
-; 603  : 
-; 604  : 	Hooker.WriteJMP((void*)0x43D167, superdirtybinpatch);
+; 646  : 	}
+; 647  : 
+; 648  : 	{
+; 649  : 		char data[]{ 0x90, 0x90, 0x90 };
 
-  002bd	68 00 00 00 00	 push	 OFFSET ?superdirtybinpatch@@YAXXZ ; superdirtybinpatch
-  002c2	68 67 d1 43 00	 push	 4444519			; 0043d167H
-  002c7	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  002ca	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
+  002bd	c6 85 5c ff ff
+	ff 90		 mov	 BYTE PTR _data$7[ebp], -112 ; ffffff90H
+  002c4	c6 85 5d ff ff
+	ff 90		 mov	 BYTE PTR _data$7[ebp+1], -112 ; ffffff90H
+  002cb	c6 85 5e ff ff
+	ff 90		 mov	 BYTE PTR _data$7[ebp+2], -112 ; ffffff90H
 
-; 605  : 	Hooker.WriteJMP((void*)0x44B678, dirtygotogamechallengepatch);
+; 650  : 		Hooker.WritePatch((void*)0x4C8918, data, 7);
 
-  002cf	68 00 00 00 00	 push	 OFFSET ?dirtygotogamechallengepatch@@YAXXZ ; dirtygotogamechallengepatch
-  002d4	68 78 b6 44 00	 push	 4503160			; 0044b678H
-  002d9	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  002dc	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
+  002d2	6a 07		 push	 7
+  002d4	8d 85 5c ff ff
+	ff		 lea	 eax, DWORD PTR _data$7[ebp]
+  002da	50		 push	 eax
+  002db	68 18 89 4c 00	 push	 5015832			; 004c8918H
+  002e0	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  002e3	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 606  : 	Hooker.WriteJMP((void*)0x5B48D0, IncChaotixClearItem_ASM);
+; 651  : 	}
+; 652  : 
+; 653  : 	Hooker.WriteJMP((void*)0x43D167, superdirtybinpatch);
 
-  002e1	68 00 00 00 00	 push	 OFFSET ?IncChaotixClearItem_ASM@@YAXXZ ; IncChaotixClearItem_ASM
-  002e6	68 d0 48 5b 00	 push	 5982416			; 005b48d0H
-  002eb	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  002ee	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
+  002e8	68 00 00 00 00	 push	 OFFSET ?superdirtybinpatch@@YAXXZ ; superdirtybinpatch
+  002ed	68 67 d1 43 00	 push	 4444519			; 0043d167H
+  002f2	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  002f5	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
 
-; 607  : 	//Hooker.WriteJMP((void*)0x482FF3, ringsubstanceexechook_ASM);
-; 608  : 	//Hooker.WriteJMP((void*)0x4833D6, RingSubstanceCheckCollisionHook_ASM);
-; 609  : 	Hooker.WriteJMP((void*)0x47194C, WarpCameraAndPlayer_ASM);
+; 654  : 	Hooker.WriteJMP((void*)0x44B678, dirtygotogamechallengepatch);
 
-  002f3	68 00 00 00 00	 push	 OFFSET ?WarpCameraAndPlayer_ASM@@YAXXZ ; WarpCameraAndPlayer_ASM
-  002f8	68 4c 19 47 00	 push	 4659532			; 0047194cH
-  002fd	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  00300	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
+  002fa	68 00 00 00 00	 push	 OFFSET ?dirtygotogamechallengepatch@@YAXXZ ; dirtygotogamechallengepatch
+  002ff	68 78 b6 44 00	 push	 4503160			; 0044b678H
+  00304	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  00307	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
 
-; 610  : 
-; 611  : 	{
-; 612  : 		char data[] = { 0x90 };
+; 655  : 	Hooker.WriteJMP((void*)0x5B48D0, IncChaotixClearItem_ASM);
 
-  00305	c6 85 5f ff ff
+  0030c	68 00 00 00 00	 push	 OFFSET ?IncChaotixClearItem_ASM@@YAXXZ ; IncChaotixClearItem_ASM
+  00311	68 d0 48 5b 00	 push	 5982416			; 005b48d0H
+  00316	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  00319	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
+
+; 656  : 	//Hooker.WriteJMP((void*)0x482FF3, ringsubstanceexechook_ASM);
+; 657  : 	//Hooker.WriteJMP((void*)0x4833D6, RingSubstanceCheckCollisionHook_ASM);
+; 658  : 	Hooker.WriteJMP((void*)0x47194C, WarpCameraAndPlayer_ASM);
+
+  0031e	68 00 00 00 00	 push	 OFFSET ?WarpCameraAndPlayer_ASM@@YAXXZ ; WarpCameraAndPlayer_ASM
+  00323	68 4c 19 47 00	 push	 4659532			; 0047194cH
+  00328	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  0032b	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
+
+; 659  : 	Hooker.WriteJMP((void*)0x4C8913, BigCannonHack_ASM);
+
+  00330	68 00 00 00 00	 push	 OFFSET ?BigCannonHack_ASM@@YAXXZ ; BigCannonHack_ASM
+  00335	68 13 89 4c 00	 push	 5015827			; 004c8913H
+  0033a	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  0033d	e8 00 00 00 00	 call	 ?WriteJMP@Hook@@QAE_NPAX0@Z ; Hook::WriteJMP
+
+; 660  : 
+; 661  : 	{
+; 662  : 		char data[] = { 0x90 };
+
+  00342	c6 85 53 ff ff
 	ff 90		 mov	 BYTE PTR _data$6[ebp], -112 ; ffffff90H
 
-; 613  : 		Hooker.WritePatch((void*)0x43D16C, data, 1); //last byte left over to nop from previous JMP
+; 663  : 		Hooker.WritePatch((void*)0x43D16C, data, 1); //last byte left over to nop from previous JMP
 
-  0030c	6a 01		 push	 1
-  0030e	8d 85 5f ff ff
+  00349	6a 01		 push	 1
+  0034b	8d 85 53 ff ff
 	ff		 lea	 eax, DWORD PTR _data$6[ebp]
-  00314	50		 push	 eax
-  00315	68 6c d1 43 00	 push	 4444524			; 0043d16cH
-  0031a	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  0031d	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
+  00351	50		 push	 eax
+  00352	68 6c d1 43 00	 push	 4444524			; 0043d16cH
+  00357	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  0035a	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 614  : 	}
-; 615  : 
-; 616  : 	{
-; 617  : 		char data[] = { 0x90, 0x90, 0x90, 0x90 };
+; 664  : 	}
+; 665  : 
+; 666  : 	{
+; 667  : 		char data[] = { 0x90, 0x90, 0x90, 0x90 };
 
-  00322	c6 85 50 ff ff
+  0035f	c6 85 44 ff ff
 	ff 90		 mov	 BYTE PTR _data$5[ebp], -112 ; ffffff90H
-  00329	c6 85 51 ff ff
+  00366	c6 85 45 ff ff
 	ff 90		 mov	 BYTE PTR _data$5[ebp+1], -112 ; ffffff90H
-  00330	c6 85 52 ff ff
+  0036d	c6 85 46 ff ff
 	ff 90		 mov	 BYTE PTR _data$5[ebp+2], -112 ; ffffff90H
-  00337	c6 85 53 ff ff
+  00374	c6 85 47 ff ff
 	ff 90		 mov	 BYTE PTR _data$5[ebp+3], -112 ; ffffff90H
 
-; 618  : 		Hooker.WritePatch((void*)0x45EEF1, data, 4);
+; 668  : 		Hooker.WritePatch((void*)0x45EEF1, data, 4);
 
-  0033e	6a 04		 push	 4
-  00340	8d 85 50 ff ff
+  0037b	6a 04		 push	 4
+  0037d	8d 85 44 ff ff
 	ff		 lea	 eax, DWORD PTR _data$5[ebp]
-  00346	50		 push	 eax
-  00347	68 f1 ee 45 00	 push	 4583153			; 0045eef1H
-  0034c	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  0034f	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
+  00383	50		 push	 eax
+  00384	68 f1 ee 45 00	 push	 4583153			; 0045eef1H
+  00389	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  0038c	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 619  : 		Hooker.Replace(0x45EEEC, BobCatchPlayer_Hook);
+; 669  : 		Hooker.Replace(0x45EEEC, BobCatchPlayer_Hook);
 
-  00354	6a 00		 push	 0
-  00356	68 00 00 00 00	 push	 OFFSET ?BobCatchPlayer_Hook@@YAXXZ ; BobCatchPlayer_Hook
-  0035b	68 ec ee 45 00	 push	 4583148			; 0045eeecH
-  00360	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  00363	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
+  00391	6a 00		 push	 0
+  00393	68 00 00 00 00	 push	 OFFSET ?BobCatchPlayer_Hook@@YAXXZ ; BobCatchPlayer_Hook
+  00398	68 ec ee 45 00	 push	 4583148			; 0045eeecH
+  0039d	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  003a0	e8 00 00 00 00	 call	 ?Replace@Hook@@QAEXHPAXW4ConventionType@1@@Z ; Hook::Replace
 
-; 620  : 	}
-; 621  : 
-; 622  : 	{
-; 623  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+; 670  : 	}
+; 671  : 
+; 672  : 	{
+; 673  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
 
-  00368	c6 85 40 ff ff
+  003a5	c6 85 34 ff ff
 	ff 90		 mov	 BYTE PTR _data$4[ebp], -112 ; ffffff90H
-  0036f	c6 85 41 ff ff
+  003ac	c6 85 35 ff ff
 	ff 90		 mov	 BYTE PTR _data$4[ebp+1], -112 ; ffffff90H
-  00376	c6 85 42 ff ff
+  003b3	c6 85 36 ff ff
 	ff 90		 mov	 BYTE PTR _data$4[ebp+2], -112 ; ffffff90H
-  0037d	c6 85 43 ff ff
+  003ba	c6 85 37 ff ff
 	ff 90		 mov	 BYTE PTR _data$4[ebp+3], -112 ; ffffff90H
-  00384	c6 85 44 ff ff
+  003c1	c6 85 38 ff ff
 	ff 90		 mov	 BYTE PTR _data$4[ebp+4], -112 ; ffffff90H
-  0038b	c6 85 45 ff ff
+  003c8	c6 85 39 ff ff
 	ff 90		 mov	 BYTE PTR _data$4[ebp+5], -112 ; ffffff90H
 
-; 624  : 		Hooker.WritePatch((void*)0x401858, data, 6);
+; 674  : 		Hooker.WritePatch((void*)0x401858, data, 6);
 
-  00392	6a 06		 push	 6
-  00394	8d 85 40 ff ff
+  003cf	6a 06		 push	 6
+  003d1	8d 85 34 ff ff
 	ff		 lea	 eax, DWORD PTR _data$4[ebp]
-  0039a	50		 push	 eax
-  0039b	68 58 18 40 00	 push	 4200536			; 00401858H
-  003a0	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
-  003a3	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
+  003d7	50		 push	 eax
+  003d8	68 58 18 40 00	 push	 4200536			; 00401858H
+  003dd	8d 4d f0	 lea	 ecx, DWORD PTR _Hooker$[ebp]
+  003e0	e8 00 00 00 00	 call	 ?WritePatch@Hook@@QAE_NPAXPADH@Z ; Hook::WritePatch
 
-; 625  : 	}
-; 626  : 
-; 627  : 	{
-; 628  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+; 675  : 	}
+; 676  : 
+; 677  : 	{
+; 678  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
 
-  003a8	c6 85 30 ff ff
+  003e5	c6 85 24 ff ff
 	ff 90		 mov	 BYTE PTR _data$3[ebp], -112 ; ffffff90H
-  003af	c6 85 31 ff ff
+  003ec	c6 85 25 ff ff
 	ff 90		 mov	 BYTE PTR _data$3[ebp+1], -112 ; ffffff90H
-  003b6	c6 85 32 ff ff
+  003f3	c6 85 26 ff ff
 	ff 90		 mov	 BYTE PTR _data$3[ebp+2], -112 ; ffffff90H
-  003bd	c6 85 33 ff ff
+  003fa	c6 85 27 ff ff
 	ff 90		 mov	 BYTE PTR _data$3[ebp+3], -112 ; ffffff90H
-  003c4	c6 85 34 ff ff
+  00401	c6 85 28 ff ff
 	ff 90		 mov	 BYTE PTR _data$3[ebp+4], -112 ; ffffff90H
-  003cb	c6 85 35 ff ff
+  00408	c6 85 29 ff ff
 	ff 90		 mov	 BYTE PTR _data$3[ebp+5], -112 ; ffffff90H
-  003d2	c6 85 36 ff ff
+  0040f	c6 85 2a ff ff
 	ff 90		 mov	 BYTE PTR _data$3[ebp+6], -112 ; ffffff90H
 
-; 629  : 		//Hooker.WritePatch((void*)0x4833D6, data, 7);
-; 630  : 	}
-; 631  : 
-; 632  : 	{
-; 633  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+; 679  : 		//Hooker.WritePatch((void*)0x4833D6, data, 7);
+; 680  : 	}
+; 681  : 
+; 682  : 	{
+; 683  : 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
 
-  003d9	c6 85 20 ff ff
+  00416	c6 85 14 ff ff
 	ff 90		 mov	 BYTE PTR _data$2[ebp], -112 ; ffffff90H
-  003e0	c6 85 21 ff ff
+  0041d	c6 85 15 ff ff
 	ff 90		 mov	 BYTE PTR _data$2[ebp+1], -112 ; ffffff90H
-  003e7	c6 85 22 ff ff
+  00424	c6 85 16 ff ff
 	ff 90		 mov	 BYTE PTR _data$2[ebp+2], -112 ; ffffff90H
-  003ee	c6 85 23 ff ff
+  0042b	c6 85 17 ff ff
 	ff 90		 mov	 BYTE PTR _data$2[ebp+3], -112 ; ffffff90H
-  003f5	c6 85 24 ff ff
+  00432	c6 85 18 ff ff
 	ff 90		 mov	 BYTE PTR _data$2[ebp+4], -112 ; ffffff90H
-  003fc	c6 85 25 ff ff
+  00439	c6 85 19 ff ff
 	ff 90		 mov	 BYTE PTR _data$2[ebp+5], -112 ; ffffff90H
-  00403	c6 85 26 ff ff
+  00440	c6 85 1a ff ff
 	ff 90		 mov	 BYTE PTR _data$2[ebp+6], -112 ; ffffff90H
 
-; 634  : 		//Hooker.WritePatch((void*)0x483156, data, 7);
-; 635  : 	}
-; 636  : 
-; 637  : 	{
-; 638  : 		char data[]{ 0x90, 0x90, 0x90, 0x90 };
+; 684  : 		//Hooker.WritePatch((void*)0x483156, data, 7);
+; 685  : 	}
+; 686  : 
+; 687  : 	{
+; 688  : 		char data[]{ 0x90, 0x90, 0x90, 0x90 };
 
-  0040a	c6 85 14 ff ff
+  00447	c6 85 08 ff ff
 	ff 90		 mov	 BYTE PTR _data$1[ebp], -112 ; ffffff90H
-  00411	c6 85 15 ff ff
+  0044e	c6 85 09 ff ff
 	ff 90		 mov	 BYTE PTR _data$1[ebp+1], -112 ; ffffff90H
-  00418	c6 85 16 ff ff
+  00455	c6 85 0a ff ff
 	ff 90		 mov	 BYTE PTR _data$1[ebp+2], -112 ; ffffff90H
-  0041f	c6 85 17 ff ff
+  0045c	c6 85 0b ff ff
 	ff 90		 mov	 BYTE PTR _data$1[ebp+3], -112 ; ffffff90H
 
-; 639  : 		//Hooker.WritePatch((void*)0x4823D6, data, 4);
-; 640  : 	}
-; 641  : 
-; 642  : 	myCode2 = (void(__cdecl*)(void*))CreateTrampoline((void*)0x447280, ADV_2P_Create_Tramp, 7);
+; 689  : 		//Hooker.WritePatch((void*)0x4823D6, data, 4);
+; 690  : 	}
+; 691  : 
+; 692  : 	myCode2 = (void(__cdecl*)(void*))CreateTrampoline((void*)0x447280, ADV_2P_Create_Tramp, 7);
 
-  00426	6a 07		 push	 7
-  00428	68 00 00 00 00	 push	 OFFSET ?ADV_2P_Create_Tramp@@YAXPAUTObject@@@Z ; ADV_2P_Create_Tramp
-  0042d	68 80 72 44 00	 push	 4485760			; 00447280H
-  00432	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
-  00437	83 c4 0c	 add	 esp, 12			; 0000000cH
-  0043a	a3 00 00 00 00	 mov	 DWORD PTR ?myCode2@@3P6AXPAX@ZA, eax ; myCode2
+  00463	6a 07		 push	 7
+  00465	68 00 00 00 00	 push	 OFFSET ?ADV_2P_Create_Tramp@@YAXPAUTObject@@@Z ; ADV_2P_Create_Tramp
+  0046a	68 80 72 44 00	 push	 4485760			; 00447280H
+  0046f	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
+  00474	83 c4 0c	 add	 esp, 12			; 0000000cH
+  00477	a3 00 00 00 00	 mov	 DWORD PTR ?myCode2@@3P6AXPAX@ZA, eax ; myCode2
 
-; 643  : 	myCode3 = (void(__cdecl*)(void*))CreateTrampoline((void*)0x447C10, ADV_2P_ExecSelect2, 10);
+; 693  : 	myCode3 = (void(__cdecl*)(void*))CreateTrampoline((void*)0x447C10, ADV_2P_ExecSelect2, 10);
 
-  0043f	6a 0a		 push	 10			; 0000000aH
-  00441	68 00 00 00 00	 push	 OFFSET ?ADV_2P_ExecSelect2@@YAXXZ ; ADV_2P_ExecSelect2
-  00446	68 10 7c 44 00	 push	 4488208			; 00447c10H
-  0044b	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
-  00450	83 c4 0c	 add	 esp, 12			; 0000000cH
-  00453	a3 00 00 00 00	 mov	 DWORD PTR ?myCode3@@3P6AXPAX@ZA, eax ; myCode3
+  0047c	6a 0a		 push	 10			; 0000000aH
+  0047e	68 00 00 00 00	 push	 OFFSET ?ADV_2P_ExecSelect2@@YAXXZ ; ADV_2P_ExecSelect2
+  00483	68 10 7c 44 00	 push	 4488208			; 00447c10H
+  00488	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
+  0048d	83 c4 0c	 add	 esp, 12			; 0000000cH
+  00490	a3 00 00 00 00	 mov	 DWORD PTR ?myCode3@@3P6AXPAX@ZA, eax ; myCode3
 
-; 644  : 	myCodeSetBobsleigh = (void(__cdecl*)(int, char*))CreateTrampoline((void*)0x45C9A0, SetBobsleigh_Hook, 7);
+; 694  : 	myCodeSetBobsleigh = (void(__cdecl*)(int, char*))CreateTrampoline((void*)0x45C9A0, SetBobsleigh_Hook, 7);
 
-  00458	6a 07		 push	 7
-  0045a	68 00 00 00 00	 push	 OFFSET ?SetBobsleigh_Hook@@YAXHPAD@Z ; SetBobsleigh_Hook
-  0045f	68 a0 c9 45 00	 push	 4573600			; 0045c9a0H
-  00464	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
-  00469	83 c4 0c	 add	 esp, 12			; 0000000cH
-  0046c	a3 00 00 00 00	 mov	 DWORD PTR ?myCodeSetBobsleigh@@3P6AXHPAD@ZA, eax ; myCodeSetBobsleigh
+  00495	6a 07		 push	 7
+  00497	68 00 00 00 00	 push	 OFFSET ?SetBobsleigh_Hook@@YAXHPAD@Z ; SetBobsleigh_Hook
+  0049c	68 a0 c9 45 00	 push	 4573600			; 0045c9a0H
+  004a1	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
+  004a6	83 c4 0c	 add	 esp, 12			; 0000000cH
+  004a9	a3 00 00 00 00	 mov	 DWORD PTR ?myCodeSetBobsleigh@@3P6AXHPAD@ZA, eax ; myCodeSetBobsleigh
 
-; 645  : 	myCodeSetBobsleigh2 = (void(__cdecl*)(int, char*, void*, void*))CreateTrampoline((void*)0x45CA70, SetBobsleigh_Hook2, 7);
+; 695  : 	myCodeSetBobsleigh2 = (void(__cdecl*)(int, char*, void*, void*))CreateTrampoline((void*)0x45CA70, SetBobsleigh_Hook2, 7);
 
-  00471	6a 07		 push	 7
-  00473	68 00 00 00 00	 push	 OFFSET ?SetBobsleigh_Hook2@@YAXHPADPAX1@Z ; SetBobsleigh_Hook2
-  00478	68 70 ca 45 00	 push	 4573808			; 0045ca70H
-  0047d	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
-  00482	83 c4 0c	 add	 esp, 12			; 0000000cH
-  00485	a3 00 00 00 00	 mov	 DWORD PTR ?myCodeSetBobsleigh2@@3P6AXHPADPAX1@ZA, eax ; myCodeSetBobsleigh2
+  004ae	6a 07		 push	 7
+  004b0	68 00 00 00 00	 push	 OFFSET ?SetBobsleigh_Hook2@@YAXHPADPAX1@Z ; SetBobsleigh_Hook2
+  004b5	68 70 ca 45 00	 push	 4573808			; 0045ca70H
+  004ba	e8 00 00 00 00	 call	 ?CreateTrampoline@@YAPAXPAX0D@Z ; CreateTrampoline
+  004bf	83 c4 0c	 add	 esp, 12			; 0000000cH
+  004c2	a3 00 00 00 00	 mov	 DWORD PTR ?myCodeSetBobsleigh2@@3P6AXHPADPAX1@ZA, eax ; myCodeSetBobsleigh2
 
-; 646  : 
-; 647  : }
+; 696  : 
+; 697  : }
 
-  0048a	52		 push	 edx
-  0048b	8b cd		 mov	 ecx, ebp
-  0048d	50		 push	 eax
-  0048e	8d 15 00 00 00
-	00		 lea	 edx, DWORD PTR $LN22@Init
-  00494	e8 00 00 00 00	 call	 @_RTC_CheckStackVars@8
-  00499	58		 pop	 eax
-  0049a	5a		 pop	 edx
-  0049b	5f		 pop	 edi
-  0049c	5e		 pop	 esi
-  0049d	5b		 pop	 ebx
-  0049e	8b 4d fc	 mov	 ecx, DWORD PTR __$ArrayPad$[ebp]
-  004a1	33 cd		 xor	 ecx, ebp
-  004a3	e8 00 00 00 00	 call	 @__security_check_cookie@4
-  004a8	81 c4 b0 01 00
-	00		 add	 esp, 432		; 000001b0H
-  004ae	3b ec		 cmp	 ebp, esp
-  004b0	e8 00 00 00 00	 call	 __RTC_CheckEsp
-  004b5	8b e5		 mov	 esp, ebp
-  004b7	5d		 pop	 ebp
-  004b8	c3		 ret	 0
-  004b9	0f 1f 00	 npad	 3
+  004c7	52		 push	 edx
+  004c8	8b cd		 mov	 ecx, ebp
+  004ca	50		 push	 eax
+  004cb	8d 15 00 00 00
+	00		 lea	 edx, DWORD PTR $LN23@Init
+  004d1	e8 00 00 00 00	 call	 @_RTC_CheckStackVars@8
+  004d6	58		 pop	 eax
+  004d7	5a		 pop	 edx
+  004d8	5f		 pop	 edi
+  004d9	5e		 pop	 esi
+  004da	5b		 pop	 ebx
+  004db	8b 4d fc	 mov	 ecx, DWORD PTR __$ArrayPad$[ebp]
+  004de	33 cd		 xor	 ecx, ebp
+  004e0	e8 00 00 00 00	 call	 @__security_check_cookie@4
+  004e5	81 c4 bc 01 00
+	00		 add	 esp, 444		; 000001bcH
+  004eb	3b ec		 cmp	 ebp, esp
+  004ed	e8 00 00 00 00	 call	 __RTC_CheckEsp
+  004f2	8b e5		 mov	 esp, ebp
+  004f4	5d		 pop	 ebp
+  004f5	c3		 ret	 0
+  004f6	66 90		 npad	 2
+$LN23@Init:
+  004f8	13 00 00 00	 DD	 19			; 00000013H
+  004fc	00 00 00 00	 DD	 $LN22@Init
 $LN22@Init:
-  004bc	12 00 00 00	 DD	 18			; 00000012H
-  004c0	00 00 00 00	 DD	 $LN21@Init
-$LN21@Init:
-  004c4	f0 ff ff ff	 DD	 -16			; fffffff0H
-  004c8	08 00 00 00	 DD	 8
-  004cc	00 00 00 00	 DD	 $LN3@Init
-  004d0	e4 ff ff ff	 DD	 -28			; ffffffe4H
-  004d4	02 00 00 00	 DD	 2
-  004d8	00 00 00 00	 DD	 $LN4@Init
-  004dc	db ff ff ff	 DD	 -37			; ffffffdbH
-  004e0	01 00 00 00	 DD	 1
-  004e4	00 00 00 00	 DD	 $LN5@Init
-  004e8	cf ff ff ff	 DD	 -49			; ffffffcfH
-  004ec	01 00 00 00	 DD	 1
-  004f0	00 00 00 00	 DD	 $LN6@Init
-  004f4	c3 ff ff ff	 DD	 -61			; ffffffc3H
-  004f8	01 00 00 00	 DD	 1
-  004fc	00 00 00 00	 DD	 $LN7@Init
-  00500	b7 ff ff ff	 DD	 -73			; ffffffb7H
-  00504	01 00 00 00	 DD	 1
-  00508	00 00 00 00	 DD	 $LN8@Init
-  0050c	ab ff ff ff	 DD	 -85			; ffffffabH
-  00510	01 00 00 00	 DD	 1
-  00514	00 00 00 00	 DD	 $LN9@Init
-  00518	9f ff ff ff	 DD	 -97			; ffffff9fH
+  00500	f0 ff ff ff	 DD	 -16			; fffffff0H
+  00504	08 00 00 00	 DD	 8
+  00508	00 00 00 00	 DD	 $LN3@Init
+  0050c	e4 ff ff ff	 DD	 -28			; ffffffe4H
+  00510	02 00 00 00	 DD	 2
+  00514	00 00 00 00	 DD	 $LN4@Init
+  00518	db ff ff ff	 DD	 -37			; ffffffdbH
   0051c	01 00 00 00	 DD	 1
-  00520	00 00 00 00	 DD	 $LN10@Init
-  00524	90 ff ff ff	 DD	 -112			; ffffff90H
-  00528	03 00 00 00	 DD	 3
-  0052c	00 00 00 00	 DD	 $LN11@Init
-  00530	84 ff ff ff	 DD	 -124			; ffffff84H
-  00534	02 00 00 00	 DD	 2
-  00538	00 00 00 00	 DD	 $LN12@Init
-  0053c	78 ff ff ff	 DD	 -136			; ffffff78H
-  00540	02 00 00 00	 DD	 2
-  00544	00 00 00 00	 DD	 $LN13@Init
-  00548	68 ff ff ff	 DD	 -152			; ffffff68H
-  0054c	07 00 00 00	 DD	 7
-  00550	00 00 00 00	 DD	 $LN14@Init
-  00554	5f ff ff ff	 DD	 -161			; ffffff5fH
+  00520	00 00 00 00	 DD	 $LN5@Init
+  00524	cf ff ff ff	 DD	 -49			; ffffffcfH
+  00528	01 00 00 00	 DD	 1
+  0052c	00 00 00 00	 DD	 $LN6@Init
+  00530	c3 ff ff ff	 DD	 -61			; ffffffc3H
+  00534	01 00 00 00	 DD	 1
+  00538	00 00 00 00	 DD	 $LN7@Init
+  0053c	b7 ff ff ff	 DD	 -73			; ffffffb7H
+  00540	01 00 00 00	 DD	 1
+  00544	00 00 00 00	 DD	 $LN8@Init
+  00548	ab ff ff ff	 DD	 -85			; ffffffabH
+  0054c	01 00 00 00	 DD	 1
+  00550	00 00 00 00	 DD	 $LN9@Init
+  00554	9f ff ff ff	 DD	 -97			; ffffff9fH
   00558	01 00 00 00	 DD	 1
-  0055c	00 00 00 00	 DD	 $LN15@Init
-  00560	50 ff ff ff	 DD	 -176			; ffffff50H
-  00564	04 00 00 00	 DD	 4
-  00568	00 00 00 00	 DD	 $LN16@Init
-  0056c	40 ff ff ff	 DD	 -192			; ffffff40H
-  00570	06 00 00 00	 DD	 6
-  00574	00 00 00 00	 DD	 $LN17@Init
-  00578	30 ff ff ff	 DD	 -208			; ffffff30H
-  0057c	07 00 00 00	 DD	 7
-  00580	00 00 00 00	 DD	 $LN18@Init
-  00584	20 ff ff ff	 DD	 -224			; ffffff20H
+  0055c	00 00 00 00	 DD	 $LN10@Init
+  00560	90 ff ff ff	 DD	 -112			; ffffff90H
+  00564	03 00 00 00	 DD	 3
+  00568	00 00 00 00	 DD	 $LN11@Init
+  0056c	84 ff ff ff	 DD	 -124			; ffffff84H
+  00570	02 00 00 00	 DD	 2
+  00574	00 00 00 00	 DD	 $LN12@Init
+  00578	78 ff ff ff	 DD	 -136			; ffffff78H
+  0057c	02 00 00 00	 DD	 2
+  00580	00 00 00 00	 DD	 $LN13@Init
+  00584	68 ff ff ff	 DD	 -152			; ffffff68H
   00588	07 00 00 00	 DD	 7
-  0058c	00 00 00 00	 DD	 $LN19@Init
-  00590	14 ff ff ff	 DD	 -236			; ffffff14H
-  00594	04 00 00 00	 DD	 4
-  00598	00 00 00 00	 DD	 $LN20@Init
-$LN20@Init:
-  0059c	64		 DB	 100			; 00000064H
-  0059d	61		 DB	 97			; 00000061H
-  0059e	74		 DB	 116			; 00000074H
-  0059f	61		 DB	 97			; 00000061H
-  005a0	00		 DB	 0
-$LN19@Init:
-  005a1	64		 DB	 100			; 00000064H
-  005a2	61		 DB	 97			; 00000061H
-  005a3	74		 DB	 116			; 00000074H
-  005a4	61		 DB	 97			; 00000061H
-  005a5	00		 DB	 0
-$LN18@Init:
-  005a6	64		 DB	 100			; 00000064H
-  005a7	61		 DB	 97			; 00000061H
-  005a8	74		 DB	 116			; 00000074H
-  005a9	61		 DB	 97			; 00000061H
-  005aa	00		 DB	 0
-$LN17@Init:
-  005ab	64		 DB	 100			; 00000064H
-  005ac	61		 DB	 97			; 00000061H
-  005ad	74		 DB	 116			; 00000074H
-  005ae	61		 DB	 97			; 00000061H
-  005af	00		 DB	 0
-$LN16@Init:
-  005b0	64		 DB	 100			; 00000064H
-  005b1	61		 DB	 97			; 00000061H
-  005b2	74		 DB	 116			; 00000074H
-  005b3	61		 DB	 97			; 00000061H
-  005b4	00		 DB	 0
-$LN15@Init:
-  005b5	64		 DB	 100			; 00000064H
-  005b6	61		 DB	 97			; 00000061H
-  005b7	74		 DB	 116			; 00000074H
-  005b8	61		 DB	 97			; 00000061H
-  005b9	00		 DB	 0
-$LN14@Init:
-  005ba	64		 DB	 100			; 00000064H
-  005bb	61		 DB	 97			; 00000061H
-  005bc	74		 DB	 116			; 00000074H
-  005bd	61		 DB	 97			; 00000061H
-  005be	00		 DB	 0
-$LN13@Init:
-  005bf	64		 DB	 100			; 00000064H
-  005c0	61		 DB	 97			; 00000061H
-  005c1	74		 DB	 116			; 00000074H
-  005c2	61		 DB	 97			; 00000061H
-  005c3	00		 DB	 0
-$LN12@Init:
-  005c4	64		 DB	 100			; 00000064H
-  005c5	61		 DB	 97			; 00000061H
-  005c6	74		 DB	 116			; 00000074H
-  005c7	61		 DB	 97			; 00000061H
-  005c8	00		 DB	 0
-$LN11@Init:
-  005c9	64		 DB	 100			; 00000064H
-  005ca	61		 DB	 97			; 00000061H
-  005cb	74		 DB	 116			; 00000074H
-  005cc	61		 DB	 97			; 00000061H
-  005cd	00		 DB	 0
-$LN10@Init:
-  005ce	64		 DB	 100			; 00000064H
-  005cf	61		 DB	 97			; 00000061H
-  005d0	74		 DB	 116			; 00000074H
-  005d1	61		 DB	 97			; 00000061H
-  005d2	00		 DB	 0
-$LN9@Init:
-  005d3	64		 DB	 100			; 00000064H
-  005d4	61		 DB	 97			; 00000061H
-  005d5	74		 DB	 116			; 00000074H
-  005d6	61		 DB	 97			; 00000061H
-  005d7	00		 DB	 0
-$LN8@Init:
-  005d8	64		 DB	 100			; 00000064H
-  005d9	61		 DB	 97			; 00000061H
-  005da	74		 DB	 116			; 00000074H
-  005db	61		 DB	 97			; 00000061H
-  005dc	00		 DB	 0
-$LN7@Init:
-  005dd	64		 DB	 100			; 00000064H
-  005de	61		 DB	 97			; 00000061H
-  005df	74		 DB	 116			; 00000074H
-  005e0	61		 DB	 97			; 00000061H
-  005e1	00		 DB	 0
-$LN6@Init:
-  005e2	64		 DB	 100			; 00000064H
-  005e3	61		 DB	 97			; 00000061H
-  005e4	74		 DB	 116			; 00000074H
+  0058c	00 00 00 00	 DD	 $LN14@Init
+  00590	5c ff ff ff	 DD	 -164			; ffffff5cH
+  00594	03 00 00 00	 DD	 3
+  00598	00 00 00 00	 DD	 $LN15@Init
+  0059c	53 ff ff ff	 DD	 -173			; ffffff53H
+  005a0	01 00 00 00	 DD	 1
+  005a4	00 00 00 00	 DD	 $LN16@Init
+  005a8	44 ff ff ff	 DD	 -188			; ffffff44H
+  005ac	04 00 00 00	 DD	 4
+  005b0	00 00 00 00	 DD	 $LN17@Init
+  005b4	34 ff ff ff	 DD	 -204			; ffffff34H
+  005b8	06 00 00 00	 DD	 6
+  005bc	00 00 00 00	 DD	 $LN18@Init
+  005c0	24 ff ff ff	 DD	 -220			; ffffff24H
+  005c4	07 00 00 00	 DD	 7
+  005c8	00 00 00 00	 DD	 $LN19@Init
+  005cc	14 ff ff ff	 DD	 -236			; ffffff14H
+  005d0	07 00 00 00	 DD	 7
+  005d4	00 00 00 00	 DD	 $LN20@Init
+  005d8	08 ff ff ff	 DD	 -248			; ffffff08H
+  005dc	04 00 00 00	 DD	 4
+  005e0	00 00 00 00	 DD	 $LN21@Init
+$LN21@Init:
+  005e4	64		 DB	 100			; 00000064H
   005e5	61		 DB	 97			; 00000061H
-  005e6	00		 DB	 0
-$LN5@Init:
-  005e7	64		 DB	 100			; 00000064H
-  005e8	61		 DB	 97			; 00000061H
-  005e9	74		 DB	 116			; 00000074H
+  005e6	74		 DB	 116			; 00000074H
+  005e7	61		 DB	 97			; 00000061H
+  005e8	00		 DB	 0
+$LN20@Init:
+  005e9	64		 DB	 100			; 00000064H
   005ea	61		 DB	 97			; 00000061H
-  005eb	00		 DB	 0
-$LN4@Init:
-  005ec	64		 DB	 100			; 00000064H
-  005ed	61		 DB	 97			; 00000061H
-  005ee	74		 DB	 116			; 00000074H
+  005eb	74		 DB	 116			; 00000074H
+  005ec	61		 DB	 97			; 00000061H
+  005ed	00		 DB	 0
+$LN19@Init:
+  005ee	64		 DB	 100			; 00000064H
   005ef	61		 DB	 97			; 00000061H
-  005f0	00		 DB	 0
-$LN3@Init:
-  005f1	48		 DB	 72			; 00000048H
-  005f2	6f		 DB	 111			; 0000006fH
-  005f3	6f		 DB	 111			; 0000006fH
-  005f4	6b		 DB	 107			; 0000006bH
-  005f5	65		 DB	 101			; 00000065H
-  005f6	72		 DB	 114			; 00000072H
+  005f0	74		 DB	 116			; 00000074H
+  005f1	61		 DB	 97			; 00000061H
+  005f2	00		 DB	 0
+$LN18@Init:
+  005f3	64		 DB	 100			; 00000064H
+  005f4	61		 DB	 97			; 00000061H
+  005f5	74		 DB	 116			; 00000074H
+  005f6	61		 DB	 97			; 00000061H
   005f7	00		 DB	 0
+$LN17@Init:
+  005f8	64		 DB	 100			; 00000064H
+  005f9	61		 DB	 97			; 00000061H
+  005fa	74		 DB	 116			; 00000074H
+  005fb	61		 DB	 97			; 00000061H
+  005fc	00		 DB	 0
+$LN16@Init:
+  005fd	64		 DB	 100			; 00000064H
+  005fe	61		 DB	 97			; 00000061H
+  005ff	74		 DB	 116			; 00000074H
+  00600	61		 DB	 97			; 00000061H
+  00601	00		 DB	 0
+$LN15@Init:
+  00602	64		 DB	 100			; 00000064H
+  00603	61		 DB	 97			; 00000061H
+  00604	74		 DB	 116			; 00000074H
+  00605	61		 DB	 97			; 00000061H
+  00606	00		 DB	 0
+$LN14@Init:
+  00607	64		 DB	 100			; 00000064H
+  00608	61		 DB	 97			; 00000061H
+  00609	74		 DB	 116			; 00000074H
+  0060a	61		 DB	 97			; 00000061H
+  0060b	00		 DB	 0
+$LN13@Init:
+  0060c	64		 DB	 100			; 00000064H
+  0060d	61		 DB	 97			; 00000061H
+  0060e	74		 DB	 116			; 00000074H
+  0060f	61		 DB	 97			; 00000061H
+  00610	00		 DB	 0
+$LN12@Init:
+  00611	64		 DB	 100			; 00000064H
+  00612	61		 DB	 97			; 00000061H
+  00613	74		 DB	 116			; 00000074H
+  00614	61		 DB	 97			; 00000061H
+  00615	00		 DB	 0
+$LN11@Init:
+  00616	64		 DB	 100			; 00000064H
+  00617	61		 DB	 97			; 00000061H
+  00618	74		 DB	 116			; 00000074H
+  00619	61		 DB	 97			; 00000061H
+  0061a	00		 DB	 0
+$LN10@Init:
+  0061b	64		 DB	 100			; 00000064H
+  0061c	61		 DB	 97			; 00000061H
+  0061d	74		 DB	 116			; 00000074H
+  0061e	61		 DB	 97			; 00000061H
+  0061f	00		 DB	 0
+$LN9@Init:
+  00620	64		 DB	 100			; 00000064H
+  00621	61		 DB	 97			; 00000061H
+  00622	74		 DB	 116			; 00000074H
+  00623	61		 DB	 97			; 00000061H
+  00624	00		 DB	 0
+$LN8@Init:
+  00625	64		 DB	 100			; 00000064H
+  00626	61		 DB	 97			; 00000061H
+  00627	74		 DB	 116			; 00000074H
+  00628	61		 DB	 97			; 00000061H
+  00629	00		 DB	 0
+$LN7@Init:
+  0062a	64		 DB	 100			; 00000064H
+  0062b	61		 DB	 97			; 00000061H
+  0062c	74		 DB	 116			; 00000074H
+  0062d	61		 DB	 97			; 00000061H
+  0062e	00		 DB	 0
+$LN6@Init:
+  0062f	64		 DB	 100			; 00000064H
+  00630	61		 DB	 97			; 00000061H
+  00631	74		 DB	 116			; 00000074H
+  00632	61		 DB	 97			; 00000061H
+  00633	00		 DB	 0
+$LN5@Init:
+  00634	64		 DB	 100			; 00000064H
+  00635	61		 DB	 97			; 00000061H
+  00636	74		 DB	 116			; 00000074H
+  00637	61		 DB	 97			; 00000061H
+  00638	00		 DB	 0
+$LN4@Init:
+  00639	64		 DB	 100			; 00000064H
+  0063a	61		 DB	 97			; 00000061H
+  0063b	74		 DB	 116			; 00000074H
+  0063c	61		 DB	 97			; 00000061H
+  0063d	00		 DB	 0
+$LN3@Init:
+  0063e	48		 DB	 72			; 00000048H
+  0063f	6f		 DB	 111			; 0000006fH
+  00640	6f		 DB	 111			; 0000006fH
+  00641	6b		 DB	 107			; 0000006bH
+  00642	65		 DB	 101			; 00000065H
+  00643	72		 DB	 114			; 00000072H
+  00644	00		 DB	 0
 _Init	ENDP
 _TEXT	ENDS
 END

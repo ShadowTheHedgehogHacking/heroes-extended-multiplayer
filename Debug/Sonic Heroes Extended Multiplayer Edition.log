@@ -7,102 +7,108 @@ C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(21,1): warn
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(207): message : see previous definition of 'HIBYTE'
 C:\Users\DonutStopGaming\Desktop\Mod\includes\HeroesLib\_PCStuff.hpp(22,1): warning C4005: 'HIWORD': macro redefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(205): message : see previous definition of 'HIWORD'
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(136,6): warning C4101: 'playerNoIndex_HHC': unreferenced local variable
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(138,7): warning C4101: 'v7': unreferenced local variable
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(137,12): warning C4101: 'v6': unreferenced local variable
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(196,6): warning C4101: 'v1': unreferenced local variable
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(240,21): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(240,21): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(280,12): warning C4244: '=': conversion from 'DWORD' to 'char', possible loss of data
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(281,12): warning C4244: '=': conversion from 'DWORD' to 'char', possible loss of data
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(417,15): warning C4102: 'endOfRingCheck': unreferenced label
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(550,16): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(555,15): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(560,15): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(565,15): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(570,15): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(585,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(585,19): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(585,31): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(585,31): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(590,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(590,19): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(590,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(590,25): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(595,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(595,19): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(595,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(595,25): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,16): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,22): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,28): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,34): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,40): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,46): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,52): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(600,52): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(612,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(612,19): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,19): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,25): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,31): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,31): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,37): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(617,37): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,16): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,22): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,28): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,34): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,40): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(623,46): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,16): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,22): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,28): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,34): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,40): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,46): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,52): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(628,52): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,16): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,22): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,28): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,34): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,40): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,46): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,52): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(633,52): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,16): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,22): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,28): warning C4309: 'initializing': truncation of constant value
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
-C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(638,34): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(161,6): warning C4101: 'playerNoIndex_HHC': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(163,7): warning C4101: 'v7': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(162,12): warning C4101: 'v6': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(221,6): warning C4101: 'v1': unreferenced local variable
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(265,21): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(265,21): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(305,12): warning C4244: '=': conversion from 'DWORD' to 'char', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(306,12): warning C4244: '=': conversion from 'DWORD' to 'char', possible loss of data
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(442,15): warning C4102: 'endOfRingCheck': unreferenced label
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(594,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(599,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(604,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(609,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(614,15): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(629,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(629,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(629,31): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(629,31): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(634,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(634,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(634,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(634,25): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(639,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(639,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(639,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(639,25): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,22): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,28): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,34): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,40): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,46): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,52): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(644,52): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(649,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(649,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(649,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(649,22): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(649,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(649,28): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(662,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(662,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,19): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,19): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,25): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,25): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,31): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,31): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,37): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(667,37): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,22): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,28): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,34): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,40): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(673,46): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,22): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,28): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,34): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,40): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,46): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,52): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(678,52): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,22): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,28): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,34): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,40): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,40): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,46): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,46): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,52): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(683,52): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,16): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,16): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,22): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,22): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,28): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,28): warning C4309: 'initializing': truncation of constant value
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,34): warning C4838: conversion from 'int' to 'char' requires a narrowing conversion
+C:\Users\DonutStopGaming\Desktop\Mod\dllmain.cpp(688,34): warning C4309: 'initializing': truncation of constant value
   Sonic Heroes Extended Multiplayer Edition.vcxproj -> C:\Users\DonutStopGaming\Desktop\Mod\Debug\mod.dll
