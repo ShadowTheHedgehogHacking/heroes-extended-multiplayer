@@ -549,9 +549,10 @@ void __declspec(naked) TObjTrainCore_Exec_ASM()
 unsigned int BigCannonHack(TObjBigCannon* bigcan)
 {
 	TObjBigCannon* _tv11 = bigcan;
-	int _tv0 = GetPlayerNumberFromCCLCharacterId((*_tv11).C_COLLI->my_num);
+	int _tv0 = GetPlayerNumberFromCCLCharacterId(((::C_COLLI*)&((*_tv11).C_COLLI))->my_num + 1);
 	TObjTeam* _tv1 = playerTOp[_tv0]->pTObjTeam;
-	return _tv1->GetLeaderPlayerNo();
+	//return _tv1->GetLeaderPlayerNo();
+	return 3;
 }
 
 int nextAddyforBigRigs = 0x4C891B;
@@ -562,6 +563,163 @@ void __declspec(naked) BigCannonHack_ASM()
 	__asm add esp, 0x4;
 	__asm mov ebx, eax;
 	__asm jmp nextAddyforBigRigs;
+}
+
+static int clumpallatomicaddy = 0x66B540;
+static int clumprenderaddy = 0x66B4F0;
+static int istransparent = 1;
+static int storedmaterial = 0;
+static int returnghostring = 0x48254F;
+void __declspec(naked) GhostRing_ASM() //CREDIT: Muzz
+{
+	TObjRingSubstance* t;
+
+	__asm
+	{
+		mov[t], edi;
+		pushad
+	}
+	if (*(int*)t->pTObjSetRing != 0x7525CC)
+	{
+		if (!((1 << (t->ringNo & 31)) & *(&t->pTObjSetRing->field_54->pStrage_HHC->gottenFlag + ((t->ringNo >> 5) & 3))))
+		{
+			istransparent = 0;
+		}
+		else
+		{
+			istransparent = 1;
+		}
+	}
+
+	__asm
+	{
+		popad
+		test ebx, ebx
+		je noclump
+		push [istransparent]
+		push setmaterial
+		push ebx
+		call [clumpallatomicaddy]
+		add esp, 0xC
+
+		noclump:
+		call [clumprenderaddy]
+		cmp [storedmaterial], 0
+		je noclump2
+		test ebx, ebx
+		je noclump2
+		push [istransparent]
+		neg dword ptr [esp]
+		push setmaterial
+		push ebx
+		call clumpallatomicaddy
+		add esp, 0xC
+
+			noclump2:
+		jmp [returnghostring]
+
+	setmaterial:
+		push eax
+		push ecx
+		push edx
+		mov ecx, [esp + 0x10]
+		test ecx, ecx
+		je noaddress
+		mov ebx, [ecx + 0x18]
+		test ebx, ebx
+		je noaddress
+		cmp [ebx + 0x18], 1
+		je hasmaterial
+		mov ebx, [ecx + 0x14]
+		jmp atomicmaterial
+
+		hasmaterial:
+		mov ebx, [ebx + 0x58]
+
+		atomicmaterial:
+		mov [storedmaterial], ebx
+		test ebx, ebx
+		je noaddress
+		movzx ecx, word ptr[ebx + 0x1A]
+		add ebx, 0x2C
+		test ecx, ecx
+		je noaddress
+		
+			counter:
+		mov eax, [ebx]
+		mov edx, [esp + 0x14]
+		push eax;
+		mov eax, 0x799958
+		imul edx, [eax]
+		pop eax
+		nop
+		add eax, edx
+		mov[ebx], eax
+		add ebx, 0x2C
+		dec ecx
+		jne  counter
+
+		noaddress:
+		pop edx
+		pop ecx
+		pop eax
+		ret
+	}
+}
+
+void __declspec(naked) ringdisp_ASM()
+{
+	__asm
+	{
+		mov[istransparent], 00
+		ret
+	}
+}
+
+static int ringtdispret = 0x4823E0;
+void __declspec(naked) ringtdisp_ASM()
+{
+	__asm
+	{
+		mov[istransparent], 01
+		jmp ringtdispret
+	}
+}
+
+static int setringtdispret = 0x482580;
+void __declspec(naked) setringtdisp_ASM()
+{
+	__asm
+	{
+	shadowmodels:
+		pushad
+		call ringtdisp_ASM
+		popad
+		jmp setringtdispret
+	}
+}
+
+static int setringdisphackret = 0x481FE9;
+static int cltobjringaddy = 0x7CF5F8;
+void __declspec(naked) hackToSetRingDisp_ASM()
+{
+	*(int*)0x752604 = (int)ringdisp_ASM;
+	*(int*)0x752608 = (int)ringtdisp_ASM;
+	*(int*)0x752634 = (int)ringdisp_ASM;
+	*(int*)0x752638 = (int)setringtdisp_ASM;
+	__asm ret 4;
+}
+
+void __declspec(naked) scatterRingGottenFix()
+{
+	TObjRingSubstance* t;
+	
+	__asm mov [t], esi;
+
+	if (*(int*)t->pTObjSetRing == 0x7525CC)
+	{
+		//t->state__ = 5;
+	}
 }
 
 //~ //
@@ -586,6 +744,9 @@ extern "C" __declspec(dllexport) void Init()
 	Hooker.Replace(0x404700, InitStageAndTeamInfo);
 	Hooker.Replace(0x426F10, SearchStartStageLocator_ASM);
 	Hooker.Replace(0x4DA6AA, TObjTrainCore_Exec_ASM);
+	Hooker.Replace(0x48254A, GhostRing_ASM);
+	Hooker.Replace(0x48210B, hackToSetRingDisp_ASM);
+	Hooker.Replace(0x4833D6, scatterRingGottenFix);
 
 
 
@@ -647,16 +808,36 @@ extern "C" __declspec(dllexport) void Init()
 
 	{
 		char data[]{ 0x90, 0x90, 0x90 };
-		Hooker.WritePatch((void*)0x4C8918, data, 7);
+		Hooker.WritePatch((void*)0x4C8918, data, 3);
+	}
+
+	{
+		DWORD oldProt = 0;
+		//*(int**)0x752604 = (int*)&ringdisp_ASM;
+		VirtualProtect((LPVOID)0x752604, 8, PAGE_EXECUTE_READWRITE, &oldProt);
+		VirtualProtect((LPVOID)00752634, 8, PAGE_EXECUTE_READWRITE, &oldProt);
+		int* vtable = *(int**)0x752604;
+		char data[] = { 0x90, 0x90, 0x90, 0x90 };
+		//Hooker.WritePatch(vtable, (char*)data, 4);
+	}
+
+	{
+		char data = 0x90;
+		Hooker.WritePatch((void*)0x4833DC, (char*)&data, 1); //nop leftover byte from scatterringdropfix
+	}
+
+	{
+		char data = 0;
+		Hooker.WritePatch((void*)0x482AA4, (char*)&data, 1); //prevents setting ring object to state 5 (inactive state) upon construction (back in range) if its been "gotten"
 	}
 
 	Hooker.WriteJMP((void*)0x43D167, superdirtybinpatch);
 	Hooker.WriteJMP((void*)0x44B678, dirtygotogamechallengepatch);
 	Hooker.WriteJMP((void*)0x5B48D0, IncChaotixClearItem_ASM);
-	//Hooker.WriteJMP((void*)0x482FF3, ringsubstanceexechook_ASM);
-	//Hooker.WriteJMP((void*)0x4833D6, RingSubstanceCheckCollisionHook_ASM);
+	Hooker.WriteJMP((void*)0x482FF3, ringsubstanceexechook_ASM);
+	Hooker.WriteJMP((void*)0x4833D6, RingSubstanceCheckCollisionHook_ASM);
 	Hooker.WriteJMP((void*)0x47194C, WarpCameraAndPlayer_ASM);
-	Hooker.WriteJMP((void*)0x4C8913, BigCannonHack_ASM);
+	//Hooker.WriteJMP((void*)0x4C8913, BigCannonHack_ASM);
 
 	{
 		char data[] = { 0x90 };
@@ -681,7 +862,7 @@ extern "C" __declspec(dllexport) void Init()
 
 	{
 		char data[]{ 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
-		//Hooker.WritePatch((void*)0x483156, data, 7);
+		//Hooker.WritePatch((void*)0x483156, data, 7); block scatter ring state from turning to 5, which makes dissapear
 	}
 
 	{

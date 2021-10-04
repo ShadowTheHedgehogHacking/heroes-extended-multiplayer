@@ -126,7 +126,7 @@ __JustMyCode_Default PROC				; COMDAT
   00004	c3		 ret	 0
 __JustMyCode_Default ENDP
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?GetPlayerNumberFromCCLCharacterId@@YAHH@Z
 _TEXT	SEGMENT
@@ -205,7 +205,7 @@ $LN1@GetPlayerN:
   0006c	c3		 ret	 0
 ?GetPlayerNumberFromCCLCharacterId@@YAHH@Z ENDP		; GetPlayerNumberFromCCLCharacterId
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryChaoCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -285,7 +285,7 @@ $LN1@EntryChaoC:
   0007f	c3		 ret	 0
 ?EntryChaoCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryChaoCCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryWallCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -366,7 +366,7 @@ $LN1@EntryWallC:
   00082	c3		 ret	 0
 ?EntryWallCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryWallCCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryItem2CCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -447,7 +447,7 @@ $LN1@EntryItem2:
   00082	c3		 ret	 0
 ?EntryItem2CCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryItem2CCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryItemCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -528,7 +528,7 @@ $LN1@EntryItemC:
   00082	c3		 ret	 0
 ?EntryItemCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryItemCCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryObject2CCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -609,7 +609,7 @@ $LN1@EntryObjec:
   00082	c3		 ret	 0
 ?EntryObject2CCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryObject2CCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryObjectCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -692,7 +692,7 @@ $LN1@EntryObjec:
   00080	c3		 ret	 0
 ?EntryObjectCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryObjectCCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryEnemy2CCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -773,7 +773,7 @@ $LN1@EntryEnemy:
   00082	c3		 ret	 0
 ?EntryEnemy2CCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryEnemy2CCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryEnemyCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -854,7 +854,7 @@ $LN1@EntryEnemy:
   00082	c3		 ret	 0
 ?EntryEnemyCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryEnemyCCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryBulletCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -952,7 +952,7 @@ $LN1@EntryBulle:
   000b0	c3		 ret	 0
 ?EntryBulletCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryBulletCCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?EntryPlayerCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z
 _TEXT	SEGMENT
@@ -1043,7 +1043,7 @@ $LN1@EntryPlaye:
   000a6	c3		 ret	 0
 ?EntryPlayerCCL@CCL_MASTER@@SA_NPAUC_COLLI@@@Z ENDP	; CCL_MASTER::EntryPlayerCCL
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?GetCurrSearchNum@CCL_MASTER@@SAHQBUC_COLLI@@HH@Z
 _TEXT	SEGMENT
@@ -1219,7 +1219,7 @@ $LN6@GetCurrSea:
   000fd	c3		 ret	 0
 ?GetCurrSearchNum@CCL_MASTER@@SAHQBUC_COLLI@@HH@Z ENDP	; CCL_MASTER::GetCurrSearchNum
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?ClearHoming@CCL_MASTER@@SAXXZ
 _TEXT	SEGMENT
@@ -1391,7 +1391,7 @@ $LN4@ClearHomin:
   0013a	c3		 ret	 0
 ?ClearHoming@CCL_MASTER@@SAXXZ ENDP			; CCL_MASTER::ClearHoming
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?ClearSearch@CCL_MASTER@@SAXXZ
 _TEXT	SEGMENT
@@ -1452,7 +1452,7 @@ _TEXT	SEGMENT
   0006a	c3		 ret	 0
 ?ClearSearch@CCL_MASTER@@SAXXZ ENDP			; CCL_MASTER::ClearSearch
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?Entry@C_COLLI@@QAEHPAURwV3d@@PAUsAngle@@@Z
 _TEXT	SEGMENT
@@ -1569,7 +1569,7 @@ _rotation$ = 12						; size = 4
   000b9	c2 08 00	 ret	 8
 ?Entry@C_COLLI@@QAEHPAURwV3d@@PAUsAngle@@@Z ENDP	; C_COLLI::Entry
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?Entry@C_COLLI@@QAEHXZ
 _TEXT	SEGMENT
@@ -1864,7 +1864,7 @@ $LN16@Entry:
   0017c	00 00 00 00	 DD	 $LN13@Entry
 ?Entry@C_COLLI@@QAEHXZ ENDP				; C_COLLI::Entry
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?ClearInfo@C_COLLI@@QAEPAUCCL_HIT_INFO@@XZ
 _TEXT	SEGMENT
@@ -2053,7 +2053,7 @@ $LN6@ClearInfo:
   00110	c3		 ret	 0
 ?ClearInfo@C_COLLI@@QAEPAUCCL_HIT_INFO@@XZ ENDP		; C_COLLI::ClearInfo
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?IsHitPlayerEx@C_COLLI@@QAEPAUCCL_HIT_INFO@@XZ
 _TEXT	SEGMENT
@@ -2287,7 +2287,7 @@ $LN1@IsHitPlaye:
   00133	c3		 ret	 0
 ?IsHitPlayerEx@C_COLLI@@QAEPAUCCL_HIT_INFO@@XZ ENDP	; C_COLLI::IsHitPlayerEx
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?IsHitPlayer@C_COLLI@@QAEPAU1@XZ
 _TEXT	SEGMENT
@@ -2337,7 +2337,7 @@ _this$ = -8						; size = 4
   00051	c3		 ret	 0
 ?IsHitPlayer@C_COLLI@@QAEPAU1@XZ ENDP			; C_COLLI::IsHitPlayer
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?IsHitKindEx@C_COLLI@@QAEPAUCCL_HIT_INFO@@E@Z
 _TEXT	SEGMENT
@@ -2504,7 +2504,7 @@ $LN1@IsHitKindE:
   000f4	c2 04 00	 ret	 4
 ?IsHitKindEx@C_COLLI@@QAEPAUCCL_HIT_INFO@@E@Z ENDP	; C_COLLI::IsHitKindEx
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?IsHitKind@C_COLLI@@QAEPAU1@E@Z
 _TEXT	SEGMENT
@@ -2557,7 +2557,7 @@ _kind$ = 8						; size = 1
   00056	c2 04 00	 ret	 4
 ?IsHitKind@C_COLLI@@QAEPAU1@E@Z ENDP			; C_COLLI::IsHitKind
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?GetCharacterId@C_COLLI@@QAEHXZ
 _TEXT	SEGMENT
@@ -2604,7 +2604,7 @@ _this$ = -8						; size = 4
   00046	c3		 ret	 0
 ?GetCharacterId@C_COLLI@@QAEHXZ ENDP			; C_COLLI::GetCharacterId
 _TEXT	ENDS
-; Function compile flags: /Odtp /RTCsu /ZI
+; Function compile flags: /Odtp /RTCsu /ZI /ZX
 ; File C:\Users\DonutStopGaming\Desktop\Mod\_CCL.cpp
 ;	COMDAT ?GetHitTarget@C_COLLI@@QAEPAU1@PAUCCL_HIT_INFO@@@Z
 _TEXT	SEGMENT
