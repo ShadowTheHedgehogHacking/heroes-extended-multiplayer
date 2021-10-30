@@ -369,9 +369,7 @@ struct TObjPlayer : TObject
 	short modeChange;
 	short flashTimer;
 	RwV3d flt_0xfc;
-	float hSpeed;
-	float VSpeed;
-	float sidewaysSpeedMaybe;
+	RwV3d spd;
 	RwV3d position;
 	sAngle rotation;
 	RwV3d scale;

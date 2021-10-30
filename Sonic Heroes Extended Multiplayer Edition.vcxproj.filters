@@ -60,6 +60,9 @@
     <ClInclude Include="action.hpp">
       <Filter>Header Files\Tsonic\src\stage11_Warp</Filter>
     </ClInclude>
+    <ClInclude Include="Netplay.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="_Hook.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="_CCL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Netplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

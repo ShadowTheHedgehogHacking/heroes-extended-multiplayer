@@ -12,6 +12,8 @@
 #include "Tsonic/src/stage/stage11_Warp/o_s11_warp.hpp"
 #include "o_warp.hpp"
 #include <HeroesLib\_MODESWITCH.hpp>
+#include "Netplay.hpp"
+#include <thread>
 //#include <fstream> //TODO: remove me when you release / are done with file io debug
 
 struct TObjRingSubstance;
@@ -725,6 +727,11 @@ void __declspec(naked) scatterRingGottenFix()
 //~ //
 extern "C" __declspec(dllexport) void Init()
 {
+	//while (1);
+	//DoIt();
+	std::thread t1(DoIt);
+	t1.detach();
+
 	Hook Hooker;
 
 	Hooker.Replace(0x5865E0, MakePlayersKeyData);
@@ -874,5 +881,10 @@ extern "C" __declspec(dllexport) void Init()
 	myCode3 = (void(__cdecl*)(void*))CreateTrampoline((void*)0x447C10, ADV_2P_ExecSelect2, 10);
 	myCodeSetBobsleigh = (void(__cdecl*)(int, char*))CreateTrampoline((void*)0x45C9A0, SetBobsleigh_Hook, 7);
 	myCodeSetBobsleigh2 = (void(__cdecl*)(int, char*, void*, void*))CreateTrampoline((void*)0x45CA70, SetBobsleigh_Hook2, 7);
+
+	{
+		char data = 0xEB;
+		Hooker.WritePatch((void*)0x446261, &data, 1); // stop mutex from preventing multiple instances
+	}
 
 }

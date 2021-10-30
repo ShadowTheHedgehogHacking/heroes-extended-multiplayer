@@ -217,9 +217,9 @@ RwV3d* TObjS11Warp::NoSpeed()
             v4->speedCopy.z = 0.0;
             v4->speedCopy.y = 0.0;
             v4->speedCopy.x = 0.0;
-            v4->sidewaysSpeedMaybe = 0.0;
-            v4->VSpeed = 0.0;
-            v4->hSpeed = 0.0;
+            v4->spd.x = 0.0;
+            v4->spd.y = 0.0;
+            v4->spd.z = 0.0;
             v4->acceleration.z = 0.0;
             v4->acceleration.y = 0.0;
             v4->acceleration.x = 0.0;
