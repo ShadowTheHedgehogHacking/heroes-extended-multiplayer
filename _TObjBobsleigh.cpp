@@ -245,6 +245,7 @@ void __declspec(naked) arrowdisptest_hook()
 	__asm
 	{
 		call arrowdisptest;
+		add esp, 0x4;
 		jmp address;
 	}
 }

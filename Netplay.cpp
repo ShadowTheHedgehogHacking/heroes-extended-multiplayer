@@ -1,9 +1,79 @@
 #include "Netplay.hpp"
 #include <HeroesLib/Player.hpp>
+#include <thread>
 
 
 
 // Function Definitions //
+void SendLoop(ConnectionManager* manager, bool isHost)
+{
+	bool running = true;
+	char frame = 0;
+	while (running)
+	{
+		{
+			if (playerTOp[3 * isHost])
+			{
+				sf::Packet sendClientPacket;
+
+				sf::Uint8 header = MID_OtherStuff;
+				sf::Uint8 pno = playerTOp[3 * isHost]->characterNo;
+				sf::Uint16 motion = playerTOp[pno]->animation;
+				sf::Uint16 mode = playerTOp[pno]->mode;
+				float angx = playerTOp[pno]->rotation.x;
+				float angy = playerTOp[pno]->rotation.y;
+				float angz = playerTOp[pno]->rotation.z;
+				float spdx = playerTOp[pno]->spd.x;
+				float spdy = playerTOp[pno]->spd.y;
+				float spdz = playerTOp[pno]->spd.z;
+
+				sendClientPacket << header;
+				sendClientPacket << motion;
+				sendClientPacket << mode;
+				sendClientPacket << pno;
+				sendClientPacket << angx;
+				sendClientPacket << angy;
+				sendClientPacket << angz;
+				sendClientPacket << spdx;
+				sendClientPacket << spdy;
+				sendClientPacket << spdz;
+
+				manager->connection->socket->send(sendClientPacket);
+			}
+		}
+
+		if (frame % 5000)
+		{
+			if (playerTOp[3 * isHost])
+			{
+				sf::Packet sendClientPacket;
+
+				sf::Uint8 header = MID_Pos;
+
+				sf::Uint8 pno = playerTOp[3 * isHost]->characterNo;
+				float posx = playerTOp[pno]->position.x;
+				float posy = playerTOp[pno]->position.y;
+				float posz = playerTOp[pno]->position.z;
+
+				sendClientPacket << header;
+				sendClientPacket << pno;
+				sendClientPacket << posx;
+				sendClientPacket << posy;
+				sendClientPacket << posz;
+
+				manager->connection->socket->send(sendClientPacket);
+			}
+		}
+		++frame;
+		if (frame > 5000)
+		{
+			frame = 0;	
+		}
+		Sleep(200);
+	}
+}
+
+
 void DoIt()
 {
 	bool running = true;
@@ -14,6 +84,11 @@ void DoIt()
 
 	ConnectionManager* manager = new ConnectionManager;
 
+	if (MessageBoxA(NULL, "Host?", "Sonic Heroes Extended Multiplayer", MB_YESNO) == IDYES)
+	{
+		isHost = true;
+	}
+
 	if (isHost)
 	{
 		if (!manager->listen(53000))
@@ -22,135 +97,87 @@ void DoIt()
 			//break;
 		}
 
+		if (!manager->accept())
+		{
+			//no new client, or an error accepting
+			//continue;
+		}
+		std::thread sendThread(SendLoop, manager, 1);
+		sendThread.detach();
 		while (running)
 		{
-			
-
-			if (!manager->accept())
-			{
-				//no new client, or an error accepting
-				//continue;
-			}
-
-
-			sf::Packet pack;
-			manager->connection->socket->receive(pack);
+			sf::Packet recieveclientpacket;
+			manager->connection->socket->receive(recieveclientpacket);
 			sf::Uint8 header;
 
-			//if (manager->receive(&header, 1) != sf::Socket::Done)
-			{
-				//continue;
-				//error
-			}
-
-			pack >> header;
+			recieveclientpacket >> header;
 
 			switch (header)
 			{
 				case MID_Pos:
 				{
-
+					sf::Uint8 pno;
 					float posx;
 					float posy;
 					float posz;
 
-					pack >> posx;
-					pack >> posy;
-					pack >> posz;
-					//RwV3d pos;
-
-					//if (manager->receive(&pos, 12) == sf::Socket::Done)
+					recieveclientpacket >> pno;
+					recieveclientpacket >> posx;
+					recieveclientpacket >> posy;
+					recieveclientpacket >> posz;
+					if (playerTOp[pno])
 					{
-						if (playerTOp[0])
-						{
-							//playerTOp[0]->position = pos;
-							playerTOp[0]->position.x = posx;
-							playerTOp[0]->position.y = posy;
-							playerTOp[0]->position.z = posz;
-
-						}
-						//error
+						playerTOp[pno]->position.x = posx;
+						playerTOp[pno]->position.y = posy;
+						playerTOp[pno]->position.z = posz;
 					}
-
-				break;
+					break;
 				}
-				
+
 				case MID_OtherStuff:
 				{
-					//short motion;
-					//short mode;
-					//char rotation[12];
-					//char speed[12];
-
 					sf::Uint16 motion;
 					sf::Uint16 mode;
+					sf::Uint8 pno;
 					float angx;
 					float angy;
 					float angz;
-					float spdx; 
-					float spdy; 
-					float spdz; 
-					
-
-					
-
-					pack >> motion;
-
-					pack >> mode;
-					
-					pack >> angx;
-					pack >> angy;
-					pack >> angz;
-					pack >> spdx;
-					pack >> spdy;
-					pack >> spdz;
+					float spdx;
+					float spdy;
+					float spdz;
 
 
 
-					//pack >> rotation;
 
-					//pack >> speed;
+					recieveclientpacket >> motion;
 
-					/*if (manager->receive((char*)&motion, 2) != sf::Socket::Done)
+					recieveclientpacket >> mode;
+					recieveclientpacket >> pno;
+
+					recieveclientpacket >> angx;
+					recieveclientpacket >> angy;
+					recieveclientpacket >> angz;
+					recieveclientpacket >> spdx;
+					recieveclientpacket >> spdy;
+					recieveclientpacket >> spdz;
+
+
+					if (playerTOp[pno])
 					{
-						//error
-						break;
+						playerTOp[pno]->animation = motion;
+						playerTOp[pno]->mode = mode;
+
+						playerTOp[pno]->rotation.x = angx;
+						playerTOp[pno]->rotation.y = angy;
+						playerTOp[pno]->rotation.z = angz;
+						playerTOp[pno]->spd.x = spdx;
+						playerTOp[pno]->spd.y = spdy;
+						playerTOp[pno]->spd.z = spdz;
 					}
-
-					if (manager->receive((char*)&mode, 2) != sf::Socket::Done)
-					{
-						//error
-						break;
-					}
-
-					if (manager->receive((char*)&rotation, 12) != sf::Socket::Done)
-					{
-						//error
-						break;
-					}
-
-					if (manager->receive((char*)&speed, 12) != sf::Socket::Done)
-					{
-						//error
-						break;
-					}*/
-
-					if (playerTOp[0])
-					{
-						playerTOp[0]->animation = motion;
-						playerTOp[0]->mode = mode;
-
-						playerTOp[0]->rotation.x = angx;
-						playerTOp[0]->rotation.y = angy;
-						playerTOp[0]->rotation.z = angz;
-						playerTOp[0]->spd.x = spdx;
-						playerTOp[0]->spd.y = spdy;
-						playerTOp[0]->spd.z = spdz;
-					}
-				break;
+					break;
 				}
 			}
-			//Sleep(10);
+			Sleep(500);
 		}
 	}
 
@@ -161,71 +188,83 @@ void DoIt()
 			Sleep(20);
 			continue;
 		}
-
-		char frame = 0;
+		
+		std::thread sendThread(SendLoop, manager, 0);
+		sendThread.detach();
 		while (running)
 		{
-			if (frame % 15)
+			sf::Packet recieveclientpacket;
+			manager->connection->socket->receive(recieveclientpacket);
+			sf::Uint8 header;
+
+			recieveclientpacket >> header;
+
+			switch (header)
 			{
-				if (playerTOp[0])
+				case MID_Pos:
 				{
+					sf::Uint8 pno;
+					float posx;
+					float posy;
+					float posz;
 
-					sf::Packet pack;
+					recieveclientpacket >> pno;
+					recieveclientpacket >> posx;
+					recieveclientpacket >> posy;
+					recieveclientpacket >> posz;
+					if (playerTOp[pno])
+					{
+						playerTOp[pno]->position.x = posx;
+						playerTOp[pno]->position.y = posy;
+						playerTOp[pno]->position.z = posz;
+					}
+					break;
+				}
 
-					sf::Uint8 header = MID_OtherStuff;
-					sf::Uint16 motion = playerTOp[0]->animation;
-					sf::Uint16 mode = playerTOp[0]->mode;
-					float angx = playerTOp[0]->rotation.x;
-					float angy = playerTOp[0]->rotation.y;
-					float angz = playerTOp[0]->rotation.z;
-					float spdx = playerTOp[0]->spd.x;
-					float spdy = playerTOp[0]->spd.y;
-					float spdz = playerTOp[0]->spd.z;
+				case MID_OtherStuff:
+				{
+					sf::Uint16 motion;
+					sf::Uint16 mode;
+					sf::Uint8 pno;
+					float angx;
+					float angy;
+					float angz;
+					float spdx;
+					float spdy;
+					float spdz;
 
-					pack << header;
-					pack << motion;
-					pack << mode;
-					pack << angx;
-					pack << angy;
-					pack << angz;
-					pack << spdx;
-					pack << spdy;
-					pack << spdz;
 
-					manager->connection->socket->send(pack);
+					recieveclientpacket >> motion;
+
+					recieveclientpacket >> mode;
+					recieveclientpacket >> pno;
+
+					recieveclientpacket >> angx;
+					recieveclientpacket >> angy;
+					recieveclientpacket >> angz;
+					recieveclientpacket >> spdx;
+					recieveclientpacket >> spdy;
+					recieveclientpacket >> spdz;
+
+
+					if (playerTOp[pno])
+					{
+						playerTOp[pno]->animation = motion;
+						playerTOp[pno]->mode = mode;
+
+						playerTOp[pno]->rotation.x = angx;
+						playerTOp[pno]->rotation.y = angy;
+						playerTOp[pno]->rotation.z = angz;
+						playerTOp[pno]->spd.x = spdx;
+						playerTOp[pno]->spd.y = spdy;
+						playerTOp[pno]->spd.z = spdz;
+					}
+					break;
 				}
 			}
-
-			if (frame % 5000)
-			{
-				if (playerTOp[0])
-				{
-					sf::Packet pack;
-
-					sf::Uint8 header = MID_Pos;
-
-					float posx = playerTOp[0]->position.x;
-					float posy = playerTOp[0]->position.y;
-					float posz = playerTOp[0]->position.z;
-
-					pack << header;
-					pack << posx;
-					pack << posy;
-					pack << posz;
-
-					manager->connection->socket->send(pack);
-				}
-			}
-			++frame;
-			if (frame > 5000)
-			{
-				frame = 0;
-			}
-			//connected
-			Sleep(5);
+			Sleep(50);
 		}
 	}
-
 	delete manager;
 }
 
@@ -322,6 +361,7 @@ ConnectionManager::ConnectionManager()
 Connection::Connection(bool isTCP, bool isBlocking)
 {
 	socket = new sf::TcpSocket;
+	//socket->setBlocking(false);
 	isConnected = false;
 }
 

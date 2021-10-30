@@ -742,7 +742,7 @@ extern "C" __declspec(dllexport) void Init()
 	Hooker.Replace(0x463A60, SetArrowPosition_hook);
 	Hooker.Replace(0x4198D0, CLASS_DVDREAD::Start);
 	Hooker.Replace(0x465BB0, initObjS31Bob);
-	Hooker.Replace(0x5B3917, arrowdisptest_hook);
+	Hooker.Replace(0x5B3918, arrowdisptest_hook); // TODO: totally overwrites DispTechniquePoints
 	Hooker.Replace(0x404DB0, addFrame_Hook);
 	//Hooker.Replace(0x40206E, initObjS31Bob);
 	Hooker.Replace(0x43E1B0, setobjCheckRangeOut2_hook);
