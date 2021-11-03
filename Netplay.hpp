@@ -7,7 +7,7 @@
 //
 enum MID
 {
-	MID_Pos = 1, MID_OtherStuff
+	MID_Pos = 1, MID_OtherStuff, MID_InitUDP, MID_UDPSuccess
 };
 //
 
@@ -22,6 +22,10 @@ public:
 
 
 	sf::TcpSocket* socket;
+	sf::UdpSocket* udpSocket;
+	const char* ipAddress;
+	unsigned short port;
+	unsigned short udpPort;
 	bool isConnected;
 };
 
@@ -41,6 +45,7 @@ public:
 	bool connect(const char* const& remoteAddress, unsigned short remotePort);
 	bool send();
 	void receive();
+	void receiveUDP();
 
 	ConnectionManager();
 	~ConnectionManager();
